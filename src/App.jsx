@@ -1,10 +1,15 @@
-import { Button } from "@material-tailwind/react";
+import LoginPage from "./pages/auth/LoginPage";
+import SignUpPage from "./pages/auth/SignUpPage";
+import UsersTable from "./pages/table/UsersTable";
+
+import { Route, Routes } from "react-router-dom";
 function App() {
   return (
-    <div className="content-center">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <Button>Material Tailwind Button</Button>
-    </div>
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/users" element={<UsersTable />} />
+    </Routes>
   );
 }
 
