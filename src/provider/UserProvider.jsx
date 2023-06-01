@@ -8,10 +8,13 @@ export default function UserProvider({ children }) {
 
   const getUsers = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:9000/api/v1/users", {
-        withCredentials: true,
-        credentials: "include",
-      });
+      const response = await axios.get(
+        "http://localhost:9000/api/v1/users?limit=8&page=1",
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
       setUsers(response.data.data.users);
     } catch (err) {
       console.error(err);

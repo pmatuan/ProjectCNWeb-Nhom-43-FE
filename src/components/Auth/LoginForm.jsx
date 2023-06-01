@@ -35,6 +35,7 @@ function LoginForm() {
       console.dir(response);
       if (response.status === 200) {
         response.data.data.user.role === "admin" && navigate("/users");
+        response.data.data.user.role === "teacher" && navigate("/forms");
       } else setError(response.data.message);
     } catch (err) {
       console.log(err);
