@@ -17,15 +17,12 @@ function UsersTable() {
   return (
     <div className="flex flex-col items-center p-6 min-h-screen">
       <Navbar />
-      <div className="mx-auto max-w-screen-xl w-full px-2 py-3 flex justify-between ">
-        <Typography className="mt-4 text-blue-500 text-4xl font-bold">
+      <div className="mx-auto max-w-screen-xl w-full px-2 py-3 flex justify-between mt-3">
+        <Typography className="mt-2 text-blue-500 text-3xl font-bold align-center">
           User list
         </Typography>
-        <Button
-          onClick={getUsers}
-          className="float-left flex items-center mt-3"
-        >
-          <ArrowPathIcon className="h-5 me-2" />
+        <Button onClick={getUsers} className="float-left flex items-center">
+          <ArrowPathIcon className="h-4 me-2" />
           Refresh
         </Button>
       </div>

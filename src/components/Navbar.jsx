@@ -74,7 +74,7 @@ function ProfileMenu() {
         >
           <UserCircleIcon className="h-4 w-4" />
           <Typography as="span" variant="small">
-            Profile
+            {localStorage.getItem("user")}
           </Typography>
         </MenuItem>
         <MenuItem
@@ -93,7 +93,7 @@ function ProfileMenu() {
 
 function Navbar() {
   return (
-    <MNavbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">
+    <MNavbar className="mx-auto max-w-screen-2xl p-2 lg:rounded-full lg:pl-6">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <Link to="#" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
           <img

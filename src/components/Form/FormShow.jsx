@@ -1,34 +1,35 @@
 import {
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
   Typography,
   Button,
 } from "@material-tailwind/react";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
-import propTypes from "prop-types";
 import MenuButton from "../MenuButton";
+import propTypes from "prop-types";
 
-function QuizShow({ quiz }) {
+function FormShow({ form }) {
   return (
-    <Card className="mt-6 w-64 h-72">
-      <CardHeader className="h-24">
-        <img
-          src="src\assets\attendance-tracker-low-resolution-color-logo.png"
-          className="object-center object-cover"
-        />
-      </CardHeader>
+    <Card className="w-64 h-72">
       <CardBody>
-        <Typography className="font-bold">{quiz.name}</Typography>
+        <Typography className="font-bold">
+          {form.name.split(" GMT")[0].slice(0, -9)}
+        </Typography>
         <Typography variant="small">
-          Number of Questions: {quiz.questions.length}
+          Chương 1: Tổng quan mạng máy tính
+        </Typography>
+        <Typography variant="small">
+          Duration: <span className="font-bold">{form.timeLimit}</span> minutes
+        </Typography>
+        <Typography variant="small">
+          Created at: {Date(form.createdAt).split(" GMT")[0]}
         </Typography>
       </CardBody>
       <CardFooter className="pt-0 w-full absolute bottom-0 flex justify-between">
         <a href="#" className="inline-block">
           <Button size="sm" className="flex items-center gap-2">
-            Create Form
+            Start Test
             <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
           </Button>
         </a>
@@ -38,8 +39,8 @@ function QuizShow({ quiz }) {
   );
 }
 
-QuizShow.propTypes = {
-  quiz: propTypes.object.isRequired,
+FormShow.propTypes = {
+  form: propTypes.object.isRequired,
 };
 
-export default QuizShow;
+export default FormShow;
