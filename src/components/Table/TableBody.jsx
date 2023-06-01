@@ -4,14 +4,11 @@ import TableRow from "./TableRow";
 
 function TableBody() {
   const { users } = useContext(UserContext);
-  console.log(users);
-
+  //console.log(users);
   const renderedRows = users.map((user) => {
     return <TableRow key={user._id} user={user} />;
   });
-
-  console.log(renderedRows);
-
+  //console.log(renderedRows);
   return <tbody>{renderedRows}</tbody>;
 }
 
