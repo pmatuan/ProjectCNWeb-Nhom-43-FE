@@ -12,7 +12,7 @@ export default function QuizProvider({ children }) {
         withCredentials: true,
         credentials: "include",
       });
-      console.log(response);
+      //console.log(response);
       setQuizzes(response.data.data.quizzes);
     } catch (err) {
       console.error(err);

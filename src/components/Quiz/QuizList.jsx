@@ -14,17 +14,19 @@ function QuizList() {
 
   return (
     <React.Fragment>
-      <div className="mx-auto max-w-screen-2xl w-full px-2 py-3 flex justify-between mt-3">
-        <Typography className="mt-2 text-blue-500 text-3xl font-bold align-center">
-          Question Sets
+      <div className="max-w-screen-xl w-full p-2 mt-3 flex justify-between">
+        <Typography className="text-blue-500 text-3xl font-bold">
+          Bộ câu hỏi
         </Typography>
         <Button className="float-left flex items-center px-3">
           <PlusIcon className="h-4 me-2" />
-          NEW
+          Thêm mới
         </Button>
       </div>
-      <div className="mx-auto max-w-screen-2xl w-full mt-3 border-gray-500">
-        <div className="flex gap-6">{renderedQuizzes}</div>
+      <div className="mx-auto max-w-screen-xl w-full flex justify-center">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+          {renderedQuizzes}
+        </div>
       </div>
       <Pagination />
     </React.Fragment>

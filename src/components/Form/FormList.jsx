@@ -7,19 +7,21 @@ import Pagination from "../Pagination";
 function FormList() {
   const { forms } = useContext(FormContext);
 
-  const renderedQuizzes = forms.map((form) => (
+  const renderedForms = forms.map((form) => (
     <FormShow key={form._id} form={form} />
   ));
 
   return (
     <React.Fragment>
-      <div className="mx-auto max-w-screen-2xl w-full px-2 py-3 flex justify-between mt-3">
-        <Typography className="mt-1 text-blue-500 text-3xl font-bold">
-          Forms
+      <div className="max-w-screen-xl w-full p-2 mt-3 overflow-auto">
+        <Typography className="text-blue-500 text-3xl font-bold">
+          Bài kiểm tra
         </Typography>
       </div>
-      <div className="mx-auto max-w-screen-2xl w-full border-gray-500">
-        <div className="flex gap-6">{renderedQuizzes}</div>
+      <div className="mx-auto max-w-screen-xl w-full flex justify-center">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+          {renderedForms}
+        </div>
       </div>
       <Pagination />
     </React.Fragment>

@@ -7,13 +7,11 @@ function Pagination() {
 
   const next = () => {
     if (active === 10) return;
-
     setActive(active + 1);
   };
 
   const prev = () => {
     if (active === 1) return;
-
     setActive(active - 1);
   };
 
@@ -29,7 +27,7 @@ function Pagination() {
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
       </IconButton>
       <Typography color="gray" className="font-normal">
-        Page <strong className="text-blue-gray-900">{active}</strong> of{" "}
+        Trang <strong className="text-blue-gray-900">{active}</strong> /{" "}
         <strong className="text-blue-gray-900">10</strong>
       </Typography>
       <IconButton

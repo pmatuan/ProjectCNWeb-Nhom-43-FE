@@ -5,8 +5,8 @@ const currentYear = new Date().getFullYear();
 function Footer() {
   return (
     <footer className="sticky top-[100vh] bottom-0 w-full">
-      <div className="mx-auto w-full max-w-6xl px-8">
-        <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-2 md:flex-row md:justify-between">
           <Typography
             variant="small"
             className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
