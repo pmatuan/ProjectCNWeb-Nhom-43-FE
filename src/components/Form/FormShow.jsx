@@ -40,7 +40,7 @@ function FormShow({ form }) {
     const id = setInterval(() => {
       const newPassword = Math.round(Math.random() * 89999) + 10000;
       startForm(form._id, newPassword);
-    }, 5004);
+    }, 4995);
     setIntervalID(id);
     setShowQR(true);
   };

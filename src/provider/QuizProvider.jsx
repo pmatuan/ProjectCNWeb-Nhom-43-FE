@@ -8,10 +8,13 @@ export default function QuizProvider({ children }) {
 
   const getQuizzes = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:9000/api/v1/quizzes", {
-        withCredentials: true,
-        credentials: "include",
-      });
+      const response = await axios.get(
+        "http://localhost:9000/api/v1/quizzes?limit=4",
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
       //console.log(response);
       setQuizzes(response.data.data.quizzes);
     } catch (err) {

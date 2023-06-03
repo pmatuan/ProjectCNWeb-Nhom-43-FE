@@ -8,10 +8,13 @@ export default function FormProvider({ children }) {
 
   const getForms = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:9000/api/v1/forms", {
-        withCredentials: true,
-        credentials: "include",
-      });
+      const response = await axios.get(
+        "http://localhost:9000/api/v1/forms?limit=4",
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
       //console.log(response);
       setForms(response.data.data.forms);
     } catch (err) {
