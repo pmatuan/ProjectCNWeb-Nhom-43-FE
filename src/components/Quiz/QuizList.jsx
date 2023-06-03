@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Button, Typography } from "@material-tailwind/react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import QuizContext from "../../contexts/QuizContext";
@@ -18,10 +19,12 @@ function QuizList() {
         <Typography className="text-blue-500 text-3xl font-bold">
           Bộ câu hỏi
         </Typography>
-        <Button className="float-left flex items-center px-3">
-          <PlusIcon className="h-4 me-2" />
-          Thêm mới
-        </Button>
+        <Link to="/createquiz" className="flex items-center gap-2">
+          <Button className="float-left flex items-center px-3">
+            <PlusIcon className="h-4 me-2" />
+            Thêm mới
+          </Button>
+        </Link>
       </div>
       <div className="mx-auto max-w-screen-xl w-full flex justify-center">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
