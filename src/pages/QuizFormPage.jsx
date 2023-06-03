@@ -3,8 +3,7 @@ import QuizContext from "../contexts/QuizContext";
 import FormContext from "../contexts/FormContext";
 import QuizList from "../components/Quiz/QuizList";
 import FormList from "../components/Form/FormList";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import MainLayout from "../layouts/MainLayout";
 
 function QuizForm() {
   const { getQuizzes } = useContext(QuizContext);
@@ -19,12 +18,10 @@ function QuizForm() {
   }, [getForms]);
 
   return (
-    <div className="flex flex-col items-center p-6 min-h-screen">
-      <Navbar />
-      <FormList />
+    <MainLayout>
       <QuizList />
-      <Footer />
-    </div>
+      <FormList />
+    </MainLayout>
   );
 }
 

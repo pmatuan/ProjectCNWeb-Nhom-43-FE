@@ -35,7 +35,7 @@ export default function UserProvider({ children }) {
           credentials: "include",
         }
       );
-      console.log("Run");
+
       if (response.status == 200) {
         const updatedUsers = users.map((u) => {
           if (u._id === user._id) return { ...user, role: newRole };

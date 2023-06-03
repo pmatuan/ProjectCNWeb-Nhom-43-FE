@@ -4,6 +4,7 @@ import {
   MenuList,
   MenuItem,
   Button,
+  Typography,
 } from "@material-tailwind/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
@@ -16,8 +17,12 @@ export default function MenuButton() {
         </Button>
       </MenuHandler>
       <MenuList>
-        <MenuItem>Detail</MenuItem>
-        <MenuItem>Delete</MenuItem>
+        <MenuItem>
+          <Typography>Xem chi tiết</Typography>
+        </MenuItem>
+        <MenuItem>
+          <Typography color="red">Xóa</Typography>
+        </MenuItem>
       </MenuList>
     </Menu>
   );
