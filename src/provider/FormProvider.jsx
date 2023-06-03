@@ -12,15 +12,72 @@ export default function FormProvider({ children }) {
         withCredentials: true,
         credentials: "include",
       });
-      console.log(response);
+      //console.log(response);
       setForms(response.data.data.forms);
     } catch (err) {
       console.error(err);
     }
   }, []);
 
+  const closeForm = async (formId) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:9000/api/v1/forms/${formId}/close`,
+        {},
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
+      console.log(response);
+      if (response.status == 200) {
+        const updatedForms = forms.map((form) => {
+          if (form._id === formId)
+            return {
+              ...form,
+              isEnabled: false,
+              password: response.data.data.form.password,
+            };
+          return form;
+        });
+        setForms(updatedForms);
+        console.log("close");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const startForm = async (formId, newPassword) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:9000/api/v1/forms/${formId}/open`,
+        {
+          password: newPassword,
+        },
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
+      console.log(response);
+      if (response.status == 200) {
+        const updatedForms = forms.map((form) => {
+          if (form._id === formId)
+            return { ...form, isEnabled: true, password: newPassword };
+          return form;
+        });
+        setForms(updatedForms);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <FormContext.Provider value={{ forms, setForms, getForms }}>
+    <FormContext.Provider
+      value={{ forms, setForms, getForms, closeForm, startForm }}
+    >
       {children}
     </FormContext.Provider>
   );
