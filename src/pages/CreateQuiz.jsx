@@ -75,7 +75,7 @@ const CreateQuiz = () => {
 
   const handleSubmit = async () => {
     try {
-      const response_1 = await axios.post(
+      const response_createQuiz = await axios.post(
         "http://localhost:9000/api/v1/quizzes",
         {
           name: quizName,
@@ -86,9 +86,7 @@ const CreateQuiz = () => {
           withCredentials: true,
         }
       );
-      console.log(response_1);
-      const id = response_1.data.data.quiz.id;
-      // console.log(quizContent);
+      const id = response_createQuiz.data.data.quiz.id;
       const questions = quizContent.map(
         ({ question, answers, key, explanation }) => ({
           question,
@@ -97,7 +95,7 @@ const CreateQuiz = () => {
           explanation,
         })
       );
-      const response_2 = await axios.post(
+      const response_addQuestions = await axios.post(
         `http://localhost:9000/api/v1/quizzes/${id}/questions`,
         {
           questions: questions,
