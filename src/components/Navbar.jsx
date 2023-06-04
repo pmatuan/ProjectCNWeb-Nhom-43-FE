@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   ChevronDownIcon,
   PowerIcon,
+  KeyIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -21,6 +22,11 @@ function ProfileMenu() {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
+
+  const handleUpdatePassword = () => {
+    setIsMenuOpen(false);
+    navigate("/updatePassword");
+  }
 
   const logout = async () => {
     try {
@@ -75,6 +81,15 @@ function ProfileMenu() {
           <UserCircleIcon className="h-4 w-4" />
           <Typography as="span" variant="small">
             Profile
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={handleUpdatePassword}
+          className="flex items-center gap-2 rounded"
+        >
+          <KeyIcon className="h-4 w-4" />
+          <Typography as="span" variant="small">
+            Update Password
           </Typography>
         </MenuItem>
         <MenuItem
