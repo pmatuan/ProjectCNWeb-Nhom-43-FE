@@ -4,7 +4,9 @@ import { Typography } from "@material-tailwind/react";
 function TableHead({ headers }) {
   const renderedHeaders = headers.map((head) => (
     <th key={head} className="border-b border-blue-500 p-4">
-      <Typography className="text-blue-500 text-md">{head}</Typography>
+      <Typography className="text-blue-500 text-md font-bold p">
+        {head}
+      </Typography>
     </th>
   ));
 

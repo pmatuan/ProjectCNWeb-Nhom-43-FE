@@ -38,7 +38,9 @@ function ProfileMenu() {
           withCredentials: true,
         }
       );
-      if (response.status === 200) console.log("OKKK");
+      if (response.status === 200) {
+        localStorage.removeItem("user");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -80,16 +82,11 @@ function ProfileMenu() {
         >
           <UserCircleIcon className="h-4 w-4" />
           <Typography as="span" variant="small">
-            Profile
-          </Typography>
-        </MenuItem>
-        <MenuItem
-          onClick={handleUpdatePassword}
-          className="flex items-center gap-2 rounded"
-        >
-          <KeyIcon className="h-4 w-4" />
-          <Typography as="span" variant="small">
-            Update Password
+            {localStorage.getItem("user") ? (
+              localStorage.getItem("user")
+            ) : (
+              <Link to="/login">Đăng nhập</Link>
+            )}
           </Typography>
         </MenuItem>
         <MenuItem
@@ -98,14 +95,13 @@ function ProfileMenu() {
         >
           <PowerIcon className="h-4 w-4 text-red-500" />
           <Typography as="span" variant="small" className="text-red-500">
-            Log Out
+            Đăng xuất
           </Typography>
         </MenuItem>
       </MenuList>
     </Menu>
   );
 }
-
 function Navbar() {
   return (
     <MNavbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">

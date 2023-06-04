@@ -1,7 +1,7 @@
 import { Card, Typography } from "@material-tailwind/react";
-import UpdatePasswordForm from "../../components/Form/UpdatePasswordForm";
+import LoginForm from "../components/Auth/LoginForm";
 
-function UpdatePasswordPage() {
+function LoginPage() {
   return (
     <div className="min-h-screen grid place-items-center bg-b1 bg-cover bg-no-repeat ">
       <Card
@@ -10,12 +10,15 @@ function UpdatePasswordPage() {
         className="border p-8 shadow-2xl bg-white"
       >
         <Typography variant="h3" color="blue-gray">
-          Update Password
+          Đăng nhập
         </Typography>
-        <UpdatePasswordForm />
+        <Typography color="gray" className="mt-1 text-md">
+          Chào mừng trở lại!
+        </Typography>
+        <LoginForm />
       </Card>
     </div>
   );
 }
 
-export default UpdatePasswordPage;
+export default LoginPage;

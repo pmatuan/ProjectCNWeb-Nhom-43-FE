@@ -1,7 +1,7 @@
 import { Card, Typography } from "@material-tailwind/react";
-import SignUpForm from "../../components/Form/SignUpForm";
+import UpdatePasswordForm from "../components/Auth/UpdatePasswordForm";
 
-function SignUpPage() {
+function UpdatePasswordPage() {
   return (
     <div className="min-h-screen grid place-items-center bg-b1 bg-cover bg-no-repeat ">
       <Card
@@ -10,15 +10,12 @@ function SignUpPage() {
         className="border p-8 shadow-2xl bg-white"
       >
         <Typography variant="h3" color="blue-gray">
-          Sign Up
+          Update Password
         </Typography>
-        <Typography color="gray" className="mt-1 text-md">
-          Enter your details to register.
-        </Typography>
-        <SignUpForm />
+        <UpdatePasswordForm />
       </Card>
     </div>
   );
 }
 
-export default SignUpPage;
+export default UpdatePasswordPage;
