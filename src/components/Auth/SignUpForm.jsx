@@ -6,10 +6,10 @@ function SignUpForm() {
   return (
     <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
       <div className="mb-4 flex flex-col gap-6">
-        <Input type="text" label="Name" required />
+        <Input type="text" label="Họ tên" required />
         <Input type="email" label="Email" required />
-        <Input type="password" label="Password" required />
-        <Input type="password" label="Confirm password" required />
+        <Input type="password" label="Mật khẩu" required />
+        <Input type="password" label="Xác nhận mật khẩu" required />
       </div>
       <div>
         <Typography
@@ -18,20 +18,20 @@ function SignUpForm() {
           className="flex items-center gap-1 font-normal mt-2"
         >
           <InformationCircleIcon className="w-4 h-4 -mt-px" />
-          Use at least 8 characters password
+          Mật khẩu phải có ít nhất 8 kí tự
         </Typography>
       </div>
 
       <Button className="mt-6" fullWidth>
-        SIGN UP
+        Đăng ký
       </Button>
       <Typography color="gray" className="mt-4 text-center font-normal">
-        Already have an account?{"  "}
+        Đã có tài khoản?{"  "}
         <Link
           to="/login"
           className="font-medium text-blue-500 transition-colors hover:text-blue-700"
         >
-          Log in
+          Đăng nhập
         </Link>
       </Typography>
     </form>
