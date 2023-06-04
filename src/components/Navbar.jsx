@@ -76,7 +76,11 @@ function ProfileMenu() {
         >
           <UserCircleIcon className="h-4 w-4" />
           <Typography as="span" variant="small">
-            {localStorage.getItem("user")}
+            {localStorage.getItem("user") ? (
+              localStorage.getItem("user")
+            ) : (
+              <Link to="/login">Đăng nhập</Link>
+            )}
           </Typography>
         </MenuItem>
         <MenuItem

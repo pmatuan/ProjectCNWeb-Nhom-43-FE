@@ -10,10 +10,10 @@ function LoginPage() {
         className="border p-8 shadow-2xl bg-white"
       >
         <Typography variant="h3" color="blue-gray">
-          Login
+          Đăng nhập
         </Typography>
         <Typography color="gray" className="mt-1 text-md">
-          Welcome back! Please enter your details.
+          Chào mừng trở lại!
         </Typography>
         <LoginForm />
       </Card>

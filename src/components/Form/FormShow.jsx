@@ -52,9 +52,7 @@ function FormShow({ form }) {
         <CardBody>
           <Typography
             className="font-bold cursor-pointer hover:text-blue-500"
-            onClick={() => {
-              setShowQR(true);
-            }}
+            //onClick={() => {setShowQR(true);}}
           >
             {form.name}
           </Typography>

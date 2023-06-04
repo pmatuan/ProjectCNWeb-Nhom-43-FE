@@ -1,10 +1,12 @@
 import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import propTypes from "prop-types";
 import UserContext from "../contexts/UserContext";
 
 export default function UserProvider({ children }) {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const getUsers = useCallback(async () => {
     try {
@@ -21,9 +23,28 @@ export default function UserProvider({ children }) {
     }
   }, []);
 
+  const isLoggedIn = async () => {
+    try {
+      const response = await axios.get("http://localhost:9000/api/v1/", {
+        withCredentials: true,
+        credentials: "include",
+      });
+
+      if (response.status == 200) {
+        localStorage.setItem("user", response.data.data.user.name);
+        response.data.data.user.role === "admin" && navigate("/users");
+        response.data.data.user.role === "teacher" && navigate("/forms");
+      } else {
+        navigate("/login");
+      }
+    } catch (err) {
+      console.error(err);
+      navigate("/login");
+    }
+  };
+
   const updateRole = async (user, newRole) => {
     try {
-      console.log(user._id);
       const response = await axios.patch(
         "http://localhost:9000/api/v1/users",
         {
@@ -51,7 +72,9 @@ export default function UserProvider({ children }) {
   };
 
   return (
-    <UserContext.Provider value={{ users, setUsers, getUsers, updateRole }}>
+    <UserContext.Provider
+      value={{ users, setUsers, getUsers, updateRole, isLoggedIn }}
+    >
       {children}
     </UserContext.Provider>
   );

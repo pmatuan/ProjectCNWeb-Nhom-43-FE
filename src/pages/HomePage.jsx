@@ -1,15 +1,16 @@
 import MainLayout from "../layouts/MainLayout";
-import { Link } from "react-router-dom";
-import { Button } from "@material-tailwind/react";
+import UserContext from "../contexts/UserContext";
+import { useEffect, useContext } from "react";
 
 function Homepage() {
+  const { isLoggedIn } = useContext(UserContext);
+  useEffect(() => {
+    isLoggedIn();
+  });
+
   return (
     <div>
-      <MainLayout>
-        <Button>
-          <Link to="/login">Login</Link>
-        </Button>
-      </MainLayout>
+      <MainLayout>Please Login!!</MainLayout>
     </div>
   );
 }

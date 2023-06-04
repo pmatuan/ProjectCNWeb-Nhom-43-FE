@@ -10,10 +10,10 @@ function SignUpPage() {
         className="border p-8 shadow-2xl bg-white"
       >
         <Typography variant="h3" color="blue-gray">
-          Sign Up
+          Đăng ký
         </Typography>
         <Typography color="gray" className="mt-1 text-md">
-          Enter your details to register.
+          Điền đầy đủ thông tin tài khoản.
         </Typography>
         <SignUpForm />
       </Card>

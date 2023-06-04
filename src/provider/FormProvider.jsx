@@ -77,9 +77,30 @@ export default function FormProvider({ children }) {
     }
   };
 
+  const createForm = async (quizId, name, timeLimit) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:9000/api/v1/forms",
+        {
+          name,
+          quizId,
+          timeLimit,
+        },
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
+
+      setForms([response.data.data.form, ...forms]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <FormContext.Provider
-      value={{ forms, setForms, getForms, closeForm, startForm }}
+      value={{ forms, setForms, getForms, closeForm, startForm, createForm }}
     >
       {children}
     </FormContext.Provider>

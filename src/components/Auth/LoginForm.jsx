@@ -56,7 +56,7 @@ function LoginForm() {
         />
         <Input
           type="password"
-          label="Password"
+          label="Mật khẩu"
           value={password}
           onChange={handlePasswordChange}
           required
@@ -68,19 +68,19 @@ function LoginForm() {
           to="/forgot"
           className="text-sm text-blue-500 transition-colors hover:text-blue-700"
         >
-          Forgot Password?
+          Quên mật khẩu?
         </Link>
       </div>
       <Button className="mt-3" fullWidth onClick={handleSubmit}>
-        LOG IN
+        Đăng nhập
       </Button>
       <Typography color="gray" className="mt-4 text-center font-normal">
-        Don&#39;t have an account?{"  "}
+        Chưa có tài khoản?{"  "}
         <Link
           to="/signup"
           className="font-medium text-blue-500 transition-colors hover:text-blue-700"
         >
-          Sign up
+          Đăng ký
         </Link>
       </Typography>
     </form>
