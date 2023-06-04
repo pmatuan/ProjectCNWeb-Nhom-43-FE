@@ -4,26 +4,17 @@ import SignUpPage from "./pages/SignUpPage";
 import UsersTable from "./pages/UsersTable";
 import QuizFormPage from "./pages/QuizFormPage";
 import CreateQuiz from "./pages/CreateQuiz";
-import UserProvider from "./provider/UserProvider.jsx";
-
-
 import { Route, Routes } from "react-router-dom";
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route
-        path="/users"
-        element={
-          <UserProvider>
-            <UsersTable />
-          </UserProvider>
-        }
-      />
+      <Route path="/users" element={<UsersTable />} />
       <Route path="/forms" element={<QuizFormPage />} />
       <Route path="/createquiz" element={<CreateQuiz />} />
+      <Route exact path="/" element={<HomePage />} />
     </Routes>
   );
 }
