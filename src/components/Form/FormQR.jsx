@@ -5,23 +5,40 @@ import ReactDOM from "react-dom";
 import QRCode from "react-qr-code";
 
 function FormQR({ form, actionBar }) {
-  const [timeRemaining, setTimeRemaining] = useState(4);
+  const [resetTimeRemaining, setResetTimeRemaining] = useState(4);
+  const [timeLeft, setTimeLeft] = useState(Number(form.timeLimit + 1) * 60);
 
   useEffect(() => {
-    if (timeRemaining >= 0) {
+    const id = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1); //previous state value
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const formatTime = (timeInSeconds) => {
+    if (timeInSeconds < 0) return "00:00";
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  useEffect(() => {
+    if (resetTimeRemaining >= 0) {
       const timer = setTimeout(() => {
-        setTimeRemaining(timeRemaining - 1);
+        setResetTimeRemaining(resetTimeRemaining - 1);
       }, 1000);
       return () => clearTimeout(timer);
-    } else setTimeRemaining(4);
-  }, [timeRemaining]);
+    } else setResetTimeRemaining(4);
+  }, [resetTimeRemaining]);
 
   return ReactDOM.createPortal(
     <div>
       <div className="fixed inset-0 bg-gray-300 opacity-80 rounded-lg"></div>
       <div className="fixed inset-0 lg:inset-20 p-20 bg-white rounded-lg">
         <div className="flex flex-col justify-between items-center h-full">
-          <div>
+          <div className="text-center">
             <QRCode
               size={300}
               bgColor="white"
@@ -34,6 +51,9 @@ function FormQR({ form, actionBar }) {
           </div>
 
           <div className="text-center">
+            <Typography className="text-2xl">
+              Thời gian còn lại: {formatTime(timeLeft)}
+            </Typography>
             <Typography className="text-2xl">{form.quiz.name}</Typography>
             <Typography className="text-2xl">
               Mật khẩu:{" "}
@@ -41,7 +61,9 @@ function FormQR({ form, actionBar }) {
             </Typography>
             <Typography className="text-2xl">
               Thay đổi mật khẩu sau:{" "}
-              <span className="text-blue-500 font-bold">{timeRemaining}</span>{" "}
+              <span className="text-blue-500 font-bold">
+                {resetTimeRemaining}
+              </span>{" "}
               giây
             </Typography>
           </div>

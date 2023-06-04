@@ -16,7 +16,7 @@ function UsersTable() {
   return (
     <MainLayout>
       <div className="max-w-screen-xl w-full p-2 mt-3 flex justify-between">
-        <Typography className="mt-2 text-blue-500 text-3xl font-bold">
+        <Typography className="mt-2 text-blue-500 text-xl md:text-3xl lg:text-3xl font-bold">
           Danh sách người dùng
         </Typography>
         <Button onClick={getUsers} className="flex items-center">
