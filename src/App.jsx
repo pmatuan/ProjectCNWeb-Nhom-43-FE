@@ -9,12 +9,12 @@ import { Route, Routes } from "react-router-dom";
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/users" element={<UsersTable />} />
       <Route path="/forms" element={<QuizFormPage />} />
       <Route path="/createquiz" element={<CreateQuiz />} />
-      <Route exact path="/" element={<HomePage />} />
     </Routes>
   );
 }
