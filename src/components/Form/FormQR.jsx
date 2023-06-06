@@ -9,6 +9,10 @@ function FormQR({ form, actionBar }) {
   const [timeLeft, setTimeLeft] = useState(Number(form.timeLimit + 1) * 60);
 
   useEffect(() => {
+    setResetTimeRemaining(4);
+  }, [form]);
+
+  useEffect(() => {
     const id = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1); //previous state value
     }, 1000);
@@ -30,7 +34,7 @@ function FormQR({ form, actionBar }) {
         setResetTimeRemaining(resetTimeRemaining - 1);
       }, 1000);
       return () => clearTimeout(timer);
-    } else setResetTimeRemaining(4);
+    } else setResetTimeRemaining(0);
   }, [resetTimeRemaining]);
 
   return ReactDOM.createPortal(
