@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   ChevronDownIcon,
   PowerIcon,
+  KeyIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -21,6 +22,11 @@ function ProfileMenu() {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
+
+  const handleUpdatePassword = () => {
+    setIsMenuOpen(false);
+    navigate("/updatePassword");
+  }
 
   const logout = async () => {
     try {
