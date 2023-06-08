@@ -6,6 +6,8 @@ import UsersTable from "./pages/UsersTable";
 import QuizFormPage from "./pages/QuizFormPage";
 import CreateQuiz from "./pages/CreateQuiz";
 import { Route, Routes } from "react-router-dom";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
       <Route path="/users" element={<UsersTable />} />
       <Route path="/forms" element={<QuizFormPage />} />
       <Route path="/createquiz" element={<CreateQuiz />} />
-      <Route path="/updatePassword" element={<UpdatePasswordPage />} />
+      <Route path="/updatepassword" element={<UpdatePasswordPage />} />
+      <Route path="/forgotpassword" element={<ForgotPassword />} />
+      <Route path="/resetpassword" element={<ResetPassword />} />
     </Routes>
   );
 }
