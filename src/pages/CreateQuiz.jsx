@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 
 const CreateQuiz = () => {
@@ -108,7 +109,6 @@ const CreateQuiz = () => {
           withCredentials: true,
         }
       );
-      window.location.href = "/forms";
     } catch (error) {
       console.log(error);
     }
@@ -205,12 +205,14 @@ const CreateQuiz = () => {
               </div>
             </div>
           ))}
-          <Button
-            onClick={handleSubmit}
-            className="block hover:bg-indigo-900 text-white px-4"
-          >
-            Lưu
-          </Button>
+          <Link to="/forms">
+            <Button
+              onClick={handleSubmit}
+              className="w-full block hover:bg-indigo-900 text-white px-4"
+            >
+              Lưu
+            </Button>
+          </Link>
           <div
             className="sticky xl:absolute bottom-10 -right-16 flex flex-col items-center bg-white p-2 rounded-md shadow-md"
             title="Thêm câu hỏi"
