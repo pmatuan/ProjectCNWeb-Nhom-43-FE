@@ -37,6 +37,7 @@ function LoginForm() {
         localStorage.setItem("user", response.data.data.user.name);
         response.data.data.user.role === "admin" && navigate("/users");
         response.data.data.user.role === "teacher" && navigate("/forms");
+        response.data.data.user.role === "student" && navigate("/students");
       } else setError(response.data.message);
     } catch (err) {
       console.log(err);

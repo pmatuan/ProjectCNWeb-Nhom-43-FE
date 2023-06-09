@@ -5,22 +5,26 @@ import FormContext from "../contexts/FormContext";
 
 export default function FormProvider({ children }) {
   const [forms, setForms] = useState([]);
+  const [maxPage, setMaxPage] = useState(1);
 
-  const getForms = useCallback(async () => {
+  const getForms = useCallback(async (page) => {
     try {
       const response = await axios.get(
-        "http://localhost:9000/api/v1/forms?limit=4",
+        `http://localhost:9000/api/v1/forms?limit=4&&page=${page}`,
         {
           withCredentials: true,
           credentials: "include",
         }
       );
-      //console.log(response);
+      console.log(response);
       setForms(response.data.data.forms);
+      setMaxPage(Math.ceil(response.data.data.count / 4));
     } catch (err) {
       console.error(err);
     }
   }, []);
+
+  //const getForm = () => {}
 
   const closeForm = async (formId) => {
     try {
@@ -79,7 +83,7 @@ export default function FormProvider({ children }) {
 
   const createForm = async (quizId, name, timeLimit) => {
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:9000/api/v1/forms",
         {
           name,
@@ -91,8 +95,7 @@ export default function FormProvider({ children }) {
           credentials: "include",
         }
       );
-
-      setForms([response.data.data.form, ...forms]);
+      await getForms();
     } catch (err) {
       console.error(err);
     }
@@ -100,7 +103,15 @@ export default function FormProvider({ children }) {
 
   return (
     <FormContext.Provider
-      value={{ forms, setForms, getForms, closeForm, startForm, createForm }}
+      value={{
+        forms,
+        maxPage,
+        setForms,
+        getForms,
+        closeForm,
+        startForm,
+        createForm,
+      }}
     >
       {children}
     </FormContext.Provider>

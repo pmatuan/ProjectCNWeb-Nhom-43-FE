@@ -47,7 +47,7 @@ function FormQR({ form, actionBar }) {
               size={300}
               bgColor="white"
               fgColor="black"
-              value={`http://192.168.1.5/forms/${form._id}/test`}
+              value={`http://localhost:5173/forms/${form._id}/exam`}
             />
             <Typography className="text-2xl font-bold mt-3">
               {form.name}
