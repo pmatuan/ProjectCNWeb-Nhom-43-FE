@@ -1,9 +1,7 @@
-import { useContext } from "react";
-import UserContext from "../../contexts/UserContext";
+import propTypes from "prop-types";
 import TableRow from "./TableRow";
 
-function TableBody() {
-  const { users } = useContext(UserContext);
+function TableBody({ users }) {
   //console.log(users);
   const renderedRows = users.map((user) => {
     return <TableRow key={user._id} user={user} />;
@@ -11,5 +9,9 @@ function TableBody() {
   //console.log(renderedRows);
   return <tbody>{renderedRows}</tbody>;
 }
+
+TableBody.propTypes = {
+  users: propTypes.array,
+};
 
 export default TableBody;
