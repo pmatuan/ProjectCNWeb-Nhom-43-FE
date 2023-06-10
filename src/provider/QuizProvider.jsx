@@ -24,8 +24,20 @@ export default function QuizProvider({ children }) {
     }
   }, []);
 
+  const deleteQuiz = async (id) => {
+    try {
+      await axios.delete(`http://localhost:9000/api/v1/quizzes/${id}`, {
+        withCredentials: true,
+        credentials: "include",
+      });
+      await getQuizzes();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <QuizContext.Provider value={{ quizzes, maxPage, setQuizzes, getQuizzes }}>
+    <QuizContext.Provider value={{ quizzes, maxPage, setQuizzes, getQuizzes, deleteQuiz }}>
       {children}
     </QuizContext.Provider>
   );

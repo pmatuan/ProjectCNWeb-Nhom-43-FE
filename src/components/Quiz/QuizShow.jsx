@@ -9,11 +9,12 @@ import {
 import propTypes from "prop-types";
 import MenuButton from "../MenuButton";
 import FormCreate from "../Form/FormCreate";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import QuizContext from "../../contexts/QuizContext";
 
 function QuizShow({ quiz }) {
   const [showFormCreate, setShowFormCreate] = useState(false);
-
+  const { deleteQuiz } = useContext(QuizContext);
   const handleClick = () => {
     setShowFormCreate(true);
   };
@@ -56,7 +57,10 @@ function QuizShow({ quiz }) {
               Tạo bài kiểm tra
             </Button>
           </a>
-          <MenuButton />
+          <MenuButton
+            onDelete={() => deleteQuiz(quiz._id)}
+            onShow={() => navigate(`/quizzes/${form._id}`)}
+          />
         </CardFooter>
       </Card>
     </React.Fragment>
