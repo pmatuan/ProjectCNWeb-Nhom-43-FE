@@ -38,7 +38,7 @@ function Pagination({ getElements, max }) {
         variant="outlined"
         color="blue-gray"
         onClick={next}
-        disabled={active === { max }}
+        disabled={active === max}
       >
         <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
       </IconButton>

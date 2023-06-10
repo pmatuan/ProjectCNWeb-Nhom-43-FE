@@ -101,6 +101,18 @@ export default function FormProvider({ children }) {
     }
   };
 
+  const deleteForm = async (id) => {
+    try {
+      await axios.delete(`http://localhost:9000/api/v1/forms/${id}`, {
+        withCredentials: true,
+        credentials: "include",
+      });
+      await getForms();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <FormContext.Provider
       value={{
@@ -111,6 +123,7 @@ export default function FormProvider({ children }) {
         closeForm,
         startForm,
         createForm,
+        deleteForm,
       }}
     >
       {children}

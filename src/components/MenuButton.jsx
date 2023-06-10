@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 import {
   Menu,
   MenuHandler,
@@ -8,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
-export default function MenuButton() {
+function MenuButton({ onShow, onDelete }) {
   return (
     <Menu>
       <MenuHandler>
@@ -17,13 +18,20 @@ export default function MenuButton() {
         </Button>
       </MenuHandler>
       <MenuList>
-        <MenuItem>
+        <MenuItem onClick={onShow}>
           <Typography>Xem chi tiết</Typography>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={onDelete}>
           <Typography color="red">Xóa</Typography>
         </MenuItem>
       </MenuList>
     </Menu>
   );
 }
+
+MenuButton.propTypes = {
+  onShow: propTypes.func,
+  onDelete: propTypes.func,
+};
+
+export default MenuButton;

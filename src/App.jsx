@@ -16,13 +16,14 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/updatepassword" element={<UpdatePasswordPage />} />
+      <Route path="/forgotpassword" element={<ForgotPassword />} />
+      <Route path="/resetpassword" element={<ResetPassword />} />
+
       <Route path="/users" element={<UsersTable />} />
       <Route path="/forms" element={<QuizFormPage />} />
       <Route path="/students" element={<StudentPage />} />
       <Route path="/createquiz" element={<CreateQuiz />} />
-      <Route path="/updatepassword" element={<UpdatePasswordPage />} />
-      <Route path="/forgotpassword" element={<ForgotPassword />} />
-      <Route path="/resetpassword" element={<ResetPassword />} />
     </Routes>
   );
 }
