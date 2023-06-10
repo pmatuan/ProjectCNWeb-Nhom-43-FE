@@ -24,8 +24,6 @@ export default function FormProvider({ children }) {
     }
   }, []);
 
-  //const getForm = () => {}
-
   const closeForm = async (formId) => {
     try {
       const response = await axios.patch(

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormContext from "../../contexts/FormContext";
 import {
   Card,
@@ -13,6 +14,7 @@ import FormQR from "./FormQR";
 import propTypes from "prop-types";
 
 function FormShow({ form }) {
+  const navigate = useNavigate();
   const { closeForm, startForm, deleteForm } = useContext(FormContext);
   const [showQR, setShowQR] = useState(false);
   const [intervalID, setIntervalID] = useState(-1);
@@ -84,7 +86,10 @@ function FormShow({ form }) {
               Kết thúc
             </Button>
           )}
-          <MenuButton onDelete={() => deleteForm(form._id)} />
+          <MenuButton
+            onDelete={() => deleteForm(form._id)}
+            onShow={() => navigate(`/forms/${form._id}`)}
+          />
         </CardFooter>
       </Card>
     </React.Fragment>

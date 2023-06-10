@@ -6,7 +6,7 @@ import { useState, useContext } from "react";
 
 function FormCreate({ quiz, actionBar, onSubmit }) {
   const [name, setName] = useState("");
-  const [timeLimit, setTimeLimit] = useState();
+  const [timeLimit, setTimeLimit] = useState(15);
   const { createForm } = useContext(FormContext);
 
   const handleSubmit = () => {

@@ -36,7 +36,7 @@ function QuizShow({ quiz }) {
       <Card className="mt-10 w-64 h-72">
         <CardHeader className="h-24">
           <img
-            src="src\assets\attendance-tracker-low-resolution-color-logo.png"
+            src="http://localhost:5173/src/assets/attendance-tracker-low-resolution-color-logo.png"
             className="object-center object-cover"
           />
         </CardHeader>
