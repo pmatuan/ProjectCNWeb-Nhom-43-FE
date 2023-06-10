@@ -19,6 +19,10 @@ function FormShow({ form }) {
   const [showQR, setShowQR] = useState(false);
   const [intervalID, setIntervalID] = useState(-1);
 
+  const ISOtoLocale = (ISOdate) => {
+    const date = new Date(ISOdate);
+    return date.toLocaleString();
+  };
   const handleCloseQR = () => {
     setShowQR(false);
   };
@@ -61,10 +65,7 @@ function FormShow({ form }) {
             <span className="font-bold">{form.timeLimit}</span> phút
           </Typography>
           <Typography variant="small">
-            Ngày tạo:{" "}
-            {`${form.createdAt.split("T")[0]}; ${form.createdAt
-              .split("T")[1]
-              .slice(0, -5)}`}
+            Ngày tạo: {ISOtoLocale(form.createdAt)}
           </Typography>
         </CardBody>
         <CardFooter className="w-full absolute bottom-0 flex justify-between">
