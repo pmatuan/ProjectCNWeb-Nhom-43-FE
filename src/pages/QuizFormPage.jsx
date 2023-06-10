@@ -10,11 +10,11 @@ function QuizForm() {
   const { getForms } = useContext(FormContext);
 
   useEffect(() => {
-    getQuizzes();
+    getQuizzes(1);
   }, [getQuizzes]);
 
   useEffect(() => {
-    getForms();
+    getForms(1);
   }, [getForms]);
 
   return (

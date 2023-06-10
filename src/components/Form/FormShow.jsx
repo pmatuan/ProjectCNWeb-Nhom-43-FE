@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormContext from "../../contexts/FormContext";
 import {
   Card,
@@ -13,7 +14,8 @@ import FormQR from "./FormQR";
 import propTypes from "prop-types";
 
 function FormShow({ form }) {
-  const { closeForm, startForm } = useContext(FormContext);
+  const navigate = useNavigate();
+  const { closeForm, startForm, deleteForm } = useContext(FormContext);
   const [showQR, setShowQR] = useState(false);
   const [intervalID, setIntervalID] = useState(-1);
 
@@ -22,12 +24,9 @@ function FormShow({ form }) {
   };
 
   const actionBar = (
-    <div className="grid grid-cols-2 gap-3">
-      <Button>Ẩn mật khẩu</Button>
-      <Button className="bg-gray-400" onClick={handleCloseQR}>
-        Đóng
-      </Button>
-    </div>
+    <Button className="bg-gray-400" onClick={handleCloseQR}>
+      Đóng
+    </Button>
   );
   const QR = <FormQR actionBar={actionBar} form={form} />;
 
@@ -40,7 +39,7 @@ function FormShow({ form }) {
     const id = setInterval(() => {
       const newPassword = Math.round(Math.random() * 89999) + 10000;
       startForm(form._id, newPassword);
-    }, 4995);
+    }, 5000);
     setIntervalID(id);
     setShowQR(true);
   };
@@ -87,7 +86,10 @@ function FormShow({ form }) {
               Kết thúc
             </Button>
           )}
-          <MenuButton />
+          <MenuButton
+            onDelete={() => deleteForm(form._id)}
+            onShow={() => navigate(`/forms/${form._id}`)}
+          />
         </CardFooter>
       </Card>
     </React.Fragment>

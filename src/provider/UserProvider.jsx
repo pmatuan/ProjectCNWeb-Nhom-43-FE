@@ -6,18 +6,20 @@ import UserContext from "../contexts/UserContext";
 
 export default function UserProvider({ children }) {
   const [users, setUsers] = useState([]);
+  const [maxPage, setMaxPage] = useState(1);
   const navigate = useNavigate();
 
-  const getUsers = useCallback(async () => {
+  const getUsers = useCallback(async (page) => {
     try {
       const response = await axios.get(
-        "http://localhost:9000/api/v1/users?limit=8&page=1",
+        `http://localhost:9000/api/v1/users?limit=8&page=${page}`,
         {
           withCredentials: true,
           credentials: "include",
         }
       );
       setUsers(response.data.data.users);
+      setMaxPage(Math.ceil(response.data.data.count / 8));
     } catch (err) {
       console.error(err);
     }
@@ -73,7 +75,7 @@ export default function UserProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ users, setUsers, getUsers, updateRole, isLoggedIn }}
+      value={{ users, maxPage, setUsers, getUsers, updateRole, isLoggedIn }}
     >
       {children}
     </UserContext.Provider>
