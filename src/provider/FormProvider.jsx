@@ -16,9 +16,16 @@ export default function FormProvider({ children }) {
           credentials: "include",
         }
       );
-      console.log(response);
+      const response_getNumberOfForms = await axios.get(
+        `http://localhost:9000/api/v1/forms`,
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
+      console.log(response_getNumberOfForms);
       setForms(response.data.data.forms);
-      setMaxPage(Math.ceil(response.data.data.count / 4));
+      setMaxPage(Math.ceil(response_getNumberOfForms.data.data.forms.length / 4));
     } catch (err) {
       console.error(err);
     }
