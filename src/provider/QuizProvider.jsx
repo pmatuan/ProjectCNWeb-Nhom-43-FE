@@ -17,8 +17,17 @@ export default function QuizProvider({ children }) {
         }
       );
       //console.log(response);
+      const response_getNumberOfQuestion = await axios.get(
+        `http://localhost:9000/api/v1/quizzes`,
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
       setQuizzes(response.data.data.quizzes);
-      setMaxPage(Math.ceil(response.data.data.count / 4));
+      setMaxPage(
+        Math.ceil(response_getNumberOfQuestion.data.data.quizzes.length / 4)
+      );
     } catch (err) {
       console.error(err);
     }
@@ -37,7 +46,9 @@ export default function QuizProvider({ children }) {
   };
 
   return (
-    <QuizContext.Provider value={{ quizzes, maxPage, setQuizzes, getQuizzes, deleteQuiz }}>
+    <QuizContext.Provider
+      value={{ quizzes, maxPage, setQuizzes, getQuizzes, deleteQuiz }}
+    >
       {children}
     </QuizContext.Provider>
   );
