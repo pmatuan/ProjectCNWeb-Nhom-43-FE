@@ -8,6 +8,7 @@ import CreateQuiz from "./pages/CreateQuiz";
 import { Route, Routes } from "react-router-dom";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import QuizTestPage from "./pages/QuizTestPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/updatepassword" element={<UpdatePasswordPage />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/resetpassword" element={<ResetPassword />} />
+      <Route path="/quiztest" element={<QuizTestPage />} />
     </Routes>
   );
 }
