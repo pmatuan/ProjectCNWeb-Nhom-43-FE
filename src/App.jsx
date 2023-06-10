@@ -10,6 +10,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import StudentPage from "./pages/StudentPage";
 import FormDetailPage from "./pages/FormDetailPage";
+import QuizDetailPage from "./pages/QuizDetailPage"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/forms" element={<QuizFormPage />} />
       <Route path="/forms/:id" element={<FormDetailPage />} />
       <Route path="/students" element={<StudentPage />} />
+      <Route path="/quizzes/:id" element={<QuizDetailPage />} />
       <Route path="/createquiz" element={<CreateQuiz />} />
     </Routes>
   );

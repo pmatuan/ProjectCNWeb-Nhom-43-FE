@@ -10,9 +10,11 @@ import propTypes from "prop-types";
 import MenuButton from "../MenuButton";
 import FormCreate from "../Form/FormCreate";
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import QuizContext from "../../contexts/QuizContext";
 
 function QuizShow({ quiz }) {
+  const navigate = useNavigate();
   const [showFormCreate, setShowFormCreate] = useState(false);
   const { deleteQuiz } = useContext(QuizContext);
   const handleClick = () => {
@@ -59,7 +61,7 @@ function QuizShow({ quiz }) {
           </a>
           <MenuButton
             onDelete={() => deleteQuiz(quiz._id)}
-            onShow={() => navigate(`/quizzes/${form._id}`)}
+            onShow={() => navigate(`/quizzes/${quiz._id}`)}
           />
         </CardFooter>
       </Card>
