@@ -7,7 +7,7 @@ import UserContext from "../contexts/UserContext";
 import Pagination from "../components/Pagination";
 
 function UsersTable() {
-  const { getUsers } = useContext(UserContext);
+  const { maxPage, getUsers } = useContext(UserContext);
 
   useEffect(() => {
     getUsers();
@@ -25,7 +25,7 @@ function UsersTable() {
         </Button>
       </div>
       <Table />
-      <Pagination />
+      <Pagination getElements={getUsers} max={maxPage} />
     </MainLayout>
   );
 }

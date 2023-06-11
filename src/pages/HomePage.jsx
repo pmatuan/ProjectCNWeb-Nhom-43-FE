@@ -1,4 +1,3 @@
-import MainLayout from "../layouts/MainLayout";
 import UserContext from "../contexts/UserContext";
 import { useEffect, useContext } from "react";
 
@@ -8,11 +7,7 @@ function Homepage() {
     isLoggedIn();
   });
 
-  return (
-    <div>
-      <MainLayout>Please Login!!</MainLayout>
-    </div>
-  );
+  return <div>Redirecting...</div>;
 }
 
 export default Homepage;

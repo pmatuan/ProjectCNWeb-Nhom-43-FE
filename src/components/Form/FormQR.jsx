@@ -1,12 +1,17 @@
-import { Typography } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 import propTypes from "prop-types";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import QRCode from "react-qr-code";
 
 function FormQR({ form, actionBar }) {
+  const [showPassword, setShowPassword] = useState(true);
   const [resetTimeRemaining, setResetTimeRemaining] = useState(4);
   const [timeLeft, setTimeLeft] = useState(Number(form.timeLimit + 1) * 60);
+
+  useEffect(() => {
+    setResetTimeRemaining(4);
+  }, [form]);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -30,7 +35,7 @@ function FormQR({ form, actionBar }) {
         setResetTimeRemaining(resetTimeRemaining - 1);
       }, 1000);
       return () => clearTimeout(timer);
-    } else setResetTimeRemaining(4);
+    } else setResetTimeRemaining(0);
   }, [resetTimeRemaining]);
 
   return ReactDOM.createPortal(
@@ -43,7 +48,7 @@ function FormQR({ form, actionBar }) {
               size={300}
               bgColor="white"
               fgColor="black"
-              value={`http://192.168.1.5/forms/${form._id}/test`}
+              value={`http://localhost:5173/forms/${form._id}/exam`}
             />
             <Typography className="text-2xl font-bold mt-3">
               {form.name}
@@ -55,19 +60,35 @@ function FormQR({ form, actionBar }) {
               Thời gian còn lại: {formatTime(timeLeft)}
             </Typography>
             <Typography className="text-2xl">{form.quiz.name}</Typography>
-            <Typography className="text-2xl">
-              Mật khẩu:{" "}
-              <span className="text-blue-500 font-bold">{form.password}</span>
-            </Typography>
-            <Typography className="text-2xl">
-              Thay đổi mật khẩu sau:{" "}
-              <span className="text-blue-500 font-bold">
-                {resetTimeRemaining}
-              </span>{" "}
-              giây
-            </Typography>
+            {showPassword && (
+              <React.Fragment>
+                <Typography className="text-2xl">
+                  Mật khẩu:{" "}
+                  <span className="text-blue-500 font-bold">
+                    {form.password}
+                  </span>
+                </Typography>
+                <Typography className="text-2xl">
+                  Thay đổi mật khẩu sau:{" "}
+                  <span className="text-blue-500 font-bold">
+                    {resetTimeRemaining}
+                  </span>{" "}
+                  giây
+                </Typography>
+              </React.Fragment>
+            )}
           </div>
-          {actionBar}
+          <div className="grid grid-cols-4 gap-3">
+            <Button
+              className="col-span-3"
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+            >
+              {showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+            </Button>
+            {actionBar}
+          </div>
         </div>
       </div>
     </div>,

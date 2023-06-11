@@ -7,7 +7,7 @@ import QuizShow from "./QuizShow";
 import Pagination from "../Pagination";
 
 function QuizList() {
-  const { quizzes } = useContext(QuizContext);
+  const { quizzes, maxPage, getQuizzes } = useContext(QuizContext);
 
   const renderedQuizzes = quizzes.map((quiz) => (
     <QuizShow key={quiz._id} quiz={quiz} />
@@ -31,7 +31,7 @@ function QuizList() {
           {renderedQuizzes}
         </div>
       </div>
-      <Pagination />
+      <Pagination getElements={getQuizzes} max={maxPage} />
     </React.Fragment>
   );
 }
