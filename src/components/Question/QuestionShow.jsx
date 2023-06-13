@@ -1,5 +1,6 @@
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   Card,
   Radio,
@@ -9,19 +10,23 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Alert,
 } from "@material-tailwind/react";
+import useGeoLocation from "../Location/UseGeoLocation";
 
-function QuestionShow({ formId }) {
+function QuestionShow() {
   const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState({});
   const [formName, setformName] = useState('');
-  const [score, setScore] = useState(0);
-  const [stateAnswers, setStateAnswers] = useState([]);
   const [open, setOpen] = useState(false);
+  const [submited, setSubmited] = useState(false);
+  const { id } = useParams();
+  const location = useGeoLocation();
 
   const getQuestions = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:9000/api/v1/forms/${formId}`,
+        `http://localhost:9000/api/v1/forms/${id}`,
         {
           withCredentials: true,
           credentials: "include",
@@ -38,44 +43,54 @@ function QuestionShow({ formId }) {
 
   useEffect(() => {
     getQuestions();
-  }, []);
-
-  const getScore = () => {
-    let currentScore = 0;
-    if (stateAnswers.length == questions.length) {
-      for (let i = 0; i < stateAnswers.length; i++) {
-        if (stateAnswers[i] == undefined) {
-          break;
-        }
-        if (stateAnswers[i] == '1') {
-          currentScore = currentScore + 1;
-        }
-      }
-    }
-    setScore(currentScore);
-  }
+  }, [id]);
 
   const handleDialog = () => {
-    getScore();
     setOpen(!open);
   }
 
-  const handleSubmit = () => {
-
+  const verifyLocation = (latitude, longitude) => {
+    const userLat = location.latitude.toFixed(3);
+    const userLog = location.longitude.toFixed(3);
+    console.log(userLat, userLog);
+    if (userLat == latitude && userLog == longitude) return true;
+    else return false;
   }
 
-  const renderQuestion = questions.map((res, indexQuestion) => {
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:9000/api/v1/forms/${id}`,
+        {
+          answers
+        },
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
+      if (response.status == 201) {
+        console.log("Submited");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setSubmited(true);
+    console.log(verifyLocation(location.latitude, location.longitude));
+  }
+
+  const renderQuestion = questions.map((question, indexQues) => {
     return (
-      <Card key={indexQuestion} className="flex flex-col gap-2 px-2 py-4 my-1 mx-2 sm:px-8 sm:my-2 sm:mx-4">
+      <Card key={question._id} className="flex flex-col gap-2 px-2 py-4 my-1 mx-2 sm:px-8 sm:my-2 sm:mx-4">
         <h1 className="font-semibold my-1">
-          Câu {indexQuestion + 1}. {res.question}
+          Câu {indexQues + 1}. {question.question}
         </h1>
-        {res.answers.map((answer, indexAnswer) => {
+        {question.answers.map((answer, indexAnswer) => {
           return (
             <div key={indexAnswer} className="pr-4">
               <Radio
-                id={indexAnswer + res.question}
-                name={res.question}
+                id={`${question._id}${indexAnswer}`}
+                name={question._id}
                 label={
                   <Typography color="blue-gray" className="font-medium flex">
                     {answer}
@@ -83,10 +98,11 @@ function QuestionShow({ formId }) {
                 }
                 value={answer}
                 ripple={false}
-                onClick={(e) => {
-                  if (e.target.value == res.key) stateAnswers[indexQuestion] = '1';
-                  else stateAnswers[indexQuestion] = '0';
-                }}
+                onClick={(e => {
+                  answers[question._id] = e.target.value;
+                  setAnswers(answers);
+                  console.log(answers);
+                })}
               />
             </div>
           )
@@ -96,39 +112,49 @@ function QuestionShow({ formId }) {
   });
 
   return (
-    <Fragment>
-      <Card className="bg-blue-500 py-4 mx-2 my-4 sm:mx-4">
-        <Typography color="blue-gray" className="text-xl text-center text-white font-semibold px-2">
-          {formName}
-        </Typography></Card>
-      {renderQuestion}
-      <Card className="mx-2 my-8 sm:mx-4">
-        <Button
-          className="text-base block hover:bg-indigo-900"
-          onClick={handleDialog}>
-          Nộp bài
-        </Button>
-        <Dialog open={open} handler={handleDialog}>
-          <DialogHeader className="text-2xl">{formName}</DialogHeader>
-          <DialogBody className="text-center" divider>
-            Xác nhận nộp bài!
-          </DialogBody>
-          <DialogFooter>
+    <React.Fragment>
+      {submited ?
+        <Alert>
+          <Typography className="text-xl text-white font-semibold">
+            Bạn đã nộp bài kiểm tra!
+          </Typography>
+        </Alert> :
+        <div>
+          <Card className="bg-blue-500 py-4 mx-2 my-4 sm:mx-4">
+            <Typography color="blue-gray" className="text-xl text-center text-white font-semibold px-2">
+              {formName}
+            </Typography>
+          </Card>
+          {renderQuestion}
+          <Card className="mx-2 my-8 sm:mx-4">
             <Button
-              variant="text"
-              color="red"
-              onClick={handleDialog}
-              className="mr-1"
-            >
-              <span>Hủy</span>
+              className="text-base block hover:bg-indigo-900"
+              onClick={handleDialog}>
+              Nộp bài
             </Button>
-            <Button variant="gradient" onClick={handleSubmit}>
-              <span>Xác nhận</span>
-            </Button>
-          </DialogFooter>
-        </Dialog>
-      </Card>
-    </Fragment>
+            <Dialog open={open} handler={handleDialog}>
+              <DialogHeader className="text-2xl">{formName}</DialogHeader>
+              <DialogBody className="text-center" divider>
+                Xác nhận nộp bài!
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="text"
+                  color="red"
+                  onClick={handleDialog}
+                  className="mr-1"
+                >
+                  <span>Hủy</span>
+                </Button>
+                <Button variant="gradient" onClick={handleSubmit}>
+                  <span>Xác nhận</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
+          </Card>
+        </div>
+      }
+    </React.Fragment>
   );
 }
 

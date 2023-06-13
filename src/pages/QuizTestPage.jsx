@@ -5,7 +5,7 @@ function QuizTestPage() {
 
   return (
     <Fragment>
-      <QuestionShow formId={"64842e81c2740f1cdf46a751"}/>
+      <QuestionShow/>
     </Fragment>
   )
 }

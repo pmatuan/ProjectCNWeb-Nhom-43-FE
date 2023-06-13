@@ -22,7 +22,7 @@ function App() {
       <Route path="/updatepassword" element={<UpdatePasswordPage />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/resetpassword" element={<ResetPassword />} />
-      <Route path="/quiztest" element={<QuizTestPage />} />
+      <Route path="/quiztest/:id" element={<QuizTestPage />} />
       <Route path="/users" element={<UsersTable />} />
       <Route path="/forms" element={<QuizFormPage />} />
       <Route path="/forms/:id" element={<FormDetailPage />} />
