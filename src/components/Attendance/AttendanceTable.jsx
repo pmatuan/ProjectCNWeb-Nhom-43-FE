@@ -34,8 +34,7 @@ function AttendanceTable({ attendances }) {
               "Email",
               "Điểm",
               "Thời gian nộp",
-              "Mã thiết bị",
-              "Thiết bị nộp bài",
+              "Nguy cơ nghỉ học"
             ]}
           />
           <tbody>{renderedRows}</tbody>
