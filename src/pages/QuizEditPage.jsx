@@ -6,26 +6,24 @@ import MainLayout from "../layouts/MainLayout";
 import QuizNameDialog from "../components/Quiz/QuizNameDialog";
 import QuestionDialog from "../components/Question/QuestionDialog";
 import { useParams } from "react-router-dom";
+import { API_URL } from "../configs";
 
 const EditQuiz = () => {
   const [quizName, setQuizName] = useState("");
   const [quizContent, setQuizContent] = useState([]);
   const { id } = useParams();
-  
+
   // Fetch the quiz details using the id and populate the form
   useEffect(() => {
     const fetchQuizDetails = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:9000/api/v1/quizzes/${id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get(`${API_URL}/api/v1/quizzes/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          withCredentials: true,
+        });
         const quizData = response.data.data.quiz;
         setQuizName(quizData.name);
         setQuizContent(() => {
@@ -65,7 +63,7 @@ const EditQuiz = () => {
   const handleSubmit = async () => {
     try {
       const response_editQuiz = await axios.put(
-        `http://localhost:9000/api/v1/quizzes/${id}`,
+        `${API_URL}/api/v1/quizzes/${id}`,
         {
           name: quizName,
         },
@@ -85,17 +83,14 @@ const EditQuiz = () => {
         })
       );
 
-      await axios.delete(
-        `http://localhost:9000/api/v1/quizzes/${id}/questions`,
-        {
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          withCredentials: true,
-        }
-      );
+      await axios.delete(`${API_URL}/api/v1/quizzes/${id}/questions`, {
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        withCredentials: true,
+      });
 
       await axios.post(
-        `http://localhost:9000/api/v1/quizzes/${id}/questions`,
+        `${API_URL}/api/v1/quizzes/${id}/questions`,
         {
           questions: questions,
         },
