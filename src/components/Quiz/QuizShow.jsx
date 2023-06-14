@@ -61,6 +61,7 @@ function QuizShow({ quiz }) {
           </a>
           <MenuButton
             onDelete={() => deleteQuiz(quiz._id)}
+            onEdit={() => navigate(`/quizzes/edit/${quiz._id}`)}
             onShow={() => navigate(`/quizzes/${quiz._id}`)}
           />
         </CardFooter>

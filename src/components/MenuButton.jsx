@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
-function MenuButton({ onShow, onDelete }) {
+function MenuButton({ onShow, onEdit, onDelete }) {
   return (
     <Menu>
       <MenuHandler>
@@ -20,6 +20,9 @@ function MenuButton({ onShow, onDelete }) {
       <MenuList>
         <MenuItem onClick={onShow}>
           <Typography>Xem chi tiết</Typography>
+        </MenuItem>
+        <MenuItem onClick={onEdit}>
+          <Typography>Chỉnh sửa</Typography>
         </MenuItem>
         <MenuItem onClick={onDelete}>
           <Typography color="red">Xóa</Typography>
