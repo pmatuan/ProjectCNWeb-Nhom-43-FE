@@ -106,6 +106,26 @@ export default function FormProvider({ children }) {
     }
   };
 
+  const updateForm = async (quizId, name, timeLimit, formId) => {
+    try {
+      await axios.put(
+        `http://localhost:9000/api/v1/forms/${formId}`,
+        {
+          name,
+          quizId,
+          timeLimit,
+        },
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
+      await getForms();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const deleteForm = async (id) => {
     try {
       await axios.delete(`http://localhost:9000/api/v1/forms/${id}`, {
@@ -128,6 +148,7 @@ export default function FormProvider({ children }) {
         closeForm,
         startForm,
         createForm,
+        updateForm,
         deleteForm,
       }}
     >
