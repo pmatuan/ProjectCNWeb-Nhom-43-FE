@@ -79,7 +79,7 @@ function FormDetail() {
     {
       label: "Danh sách nộp bài",
       value: 1,
-      desc: <AttendanceTable attendances={attendances} />,
+      desc: <AttendanceTable attendances={attendances} formName={form.name} />,
     },
   ];
 
