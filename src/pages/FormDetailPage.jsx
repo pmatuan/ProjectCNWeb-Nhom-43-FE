@@ -9,7 +9,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-
+import { API_URL } from "../configs";
 import MainLayout from "../layouts/MainLayout";
 import QuestionList from "../components/Question/QuestionList";
 import AttendanceTable from "../components/Attendance/AttendanceTable";
@@ -23,13 +23,10 @@ function FormDetail() {
   useEffect(() => {
     const getForm = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:9000/api/v1/forms/${id}`,
-          {
-            withCredentials: true,
-            credentials: "include",
-          }
-        );
+        const response = await axios.get(`${API_URL}/api/v1/forms/${id}`, {
+          withCredentials: true,
+          credentials: "include",
+        });
         console.log(response.data.data.form);
         setForm(response.data.data.form);
       } catch (err) {
@@ -43,7 +40,7 @@ function FormDetail() {
     const getAttendance = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:9000/api/v1/forms/${id}/attendances`,
+          `${API_URL}/api/v1/forms/${id}/attendances`,
           {
             withCredentials: true,
             credentials: "include",

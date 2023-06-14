@@ -13,11 +13,12 @@ import {
   Alert,
 } from "@material-tailwind/react";
 import useGeoLocation from "../Location/UseGeoLocation";
+import { API_URL } from "../../configs";
 
 function QuestionShow() {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
-  const [formName, setformName] = useState('');
+  const [formName, setformName] = useState("");
   const [open, setOpen] = useState(false);
   const [submited, setSubmited] = useState(false);
   const { id } = useParams();
@@ -25,13 +26,10 @@ function QuestionShow() {
 
   const getQuestions = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:9000/api/v1/forms/${id}`,
-        {
-          withCredentials: true,
-          credentials: "include",
-        }
-      );
+      const response = await axios.get(`${API_URL}/api/v1/forms/${id}`, {
+        withCredentials: true,
+        credentials: "include",
+      });
       if (response.status == 200) {
         setformName(response.data.data.form.name);
         setQuestions(response.data.data.form.quiz.questions);
@@ -47,7 +45,7 @@ function QuestionShow() {
 
   const handleDialog = () => {
     setOpen(!open);
-  }
+  };
 
   const verifyLocation = (latitude, longitude) => {
     const userLat = location.latitude.toFixed(3);
@@ -55,14 +53,14 @@ function QuestionShow() {
     console.log(userLat, userLog);
     if (userLat == latitude && userLog == longitude) return true;
     else return false;
-  }
+  };
 
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:9000/api/v1/forms/${id}`,
+        `${API_URL}/api/v1/forms/${id}`,
         {
-          answers
+          answers,
         },
         {
           withCredentials: true,
@@ -77,11 +75,14 @@ function QuestionShow() {
     }
     setSubmited(true);
     console.log(verifyLocation(location.latitude, location.longitude));
-  }
+  };
 
   const renderQuestion = questions.map((question, indexQues) => {
     return (
-      <Card key={question._id} className="flex flex-col gap-2 px-2 py-4 my-1 mx-2 sm:px-8 sm:my-2 sm:mx-4">
+      <Card
+        key={question._id}
+        className="flex flex-col gap-2 px-2 py-4 my-1 mx-2 sm:px-8 sm:my-2 sm:mx-4"
+      >
         <h1 className="font-semibold my-1">
           Câu {indexQues + 1}. {question.question}
         </h1>
@@ -98,14 +99,14 @@ function QuestionShow() {
                 }
                 value={answer}
                 ripple={false}
-                onClick={(e => {
+                onClick={(e) => {
                   answers[question._id] = e.target.value;
                   setAnswers(answers);
                   console.log(answers);
-                })}
+                }}
               />
             </div>
-          )
+          );
         })}
       </Card>
     );
@@ -113,15 +114,19 @@ function QuestionShow() {
 
   return (
     <React.Fragment>
-      {submited ?
+      {submited ? (
         <Alert>
           <Typography className="text-xl text-white font-semibold">
             Bạn đã nộp bài kiểm tra!
           </Typography>
-        </Alert> :
+        </Alert>
+      ) : (
         <div>
           <Card className="bg-blue-500 py-4 mx-2 my-4 sm:mx-4">
-            <Typography color="blue-gray" className="text-xl text-center text-white font-semibold px-2">
+            <Typography
+              color="blue-gray"
+              className="text-xl text-center text-white font-semibold px-2"
+            >
               {formName}
             </Typography>
           </Card>
@@ -129,7 +134,8 @@ function QuestionShow() {
           <Card className="mx-2 my-8 sm:mx-4">
             <Button
               className="text-base block hover:bg-indigo-900"
-              onClick={handleDialog}>
+              onClick={handleDialog}
+            >
               Nộp bài
             </Button>
             <Dialog open={open} handler={handleDialog}>
@@ -153,7 +159,7 @@ function QuestionShow() {
             </Dialog>
           </Card>
         </div>
-      }
+      )}
     </React.Fragment>
   );
 }

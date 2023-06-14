@@ -5,6 +5,7 @@ import { Button } from "@material-tailwind/react";
 import MainLayout from "../layouts/MainLayout";
 import QuizNameDialog from "../components/Quiz/QuizNameDialog";
 import QuestionDialog from "../components/Question/QuestionDialog";
+import { API_URL } from "../configs";
 
 const CreateQuiz = () => {
   const [quizName, setQuizName] = useState("");
@@ -26,7 +27,7 @@ const CreateQuiz = () => {
   const handleSubmit = async () => {
     try {
       const response_createQuiz = await axios.post(
-        "http://localhost:9000/api/v1/quizzes",
+        `${API_URL}/api/v1/quizzes`,
         {
           name: quizName,
         },
@@ -46,7 +47,7 @@ const CreateQuiz = () => {
         })
       );
       const response_addQuestions = await axios.post(
-        `http://localhost:9000/api/v1/quizzes/${id}/questions`,
+        `${API_URL}/api/v1/quizzes/${id}/questions`,
         {
           questions,
         },

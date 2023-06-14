@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Button, Typography, Input } from "@material-tailwind/react";
+import { API_URL } from "../../configs";
 import { Link, useNavigate } from "react-router-dom";
 
 function UpdatePasswordForm() {
@@ -10,16 +11,15 @@ function UpdatePasswordForm() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState("");
 
-
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       const response = await axios.patch(
-        "http://localhost:9000/api/v1/updatePassword",
+        `${API_URL}/api/v1/updatePassword`,
         {
           passwordCurrent,
           password,
-          passwordConfirm
+          passwordConfirm,
         },
         {
           headers: { "Content-Type": "application/json" },
@@ -46,21 +46,21 @@ function UpdatePasswordForm() {
           type="passwordCurrent"
           label="Current Password"
           value={passwordCurrent}
-          onChange={event => setPasswordCurrent(event.target.value)}
+          onChange={(event) => setPasswordCurrent(event.target.value)}
           required
         />
         <Input
           type="password"
           label="Password"
           value={password}
-          onChange={event => setPassword(event.target.value)}
+          onChange={(event) => setPassword(event.target.value)}
           required
         />
         <Input
           type="passwordConfirm"
           label="Confirm Password"
           value={passwordConfirm}
-          onChange={event => setPasswordConfirm(event.target.value)}
+          onChange={(event) => setPasswordConfirm(event.target.value)}
           required
         />
       </div>
