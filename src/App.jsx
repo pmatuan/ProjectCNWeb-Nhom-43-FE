@@ -12,6 +12,7 @@ import QuizTestPage from "./pages/QuizTestPage";
 import StudentPage from "./pages/StudentPage";
 import FormDetailPage from "./pages/FormDetailPage";
 import QuizDetailPage from "./pages/QuizDetailPage"
+import QuizEditPage from "./pages/QuizEditPage"
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path="/forms/:id" element={<FormDetailPage />} />
       <Route path="/students" element={<StudentPage />} />
       <Route path="/quizzes/:id" element={<QuizDetailPage />} />
+      <Route path="/quizzes/edit/:id" element={<QuizEditPage />} />
       <Route path="/createquiz" element={<CreateQuiz />} />
     </Routes>
   );

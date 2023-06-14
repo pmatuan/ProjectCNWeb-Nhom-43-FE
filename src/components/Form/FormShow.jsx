@@ -89,6 +89,7 @@ function FormShow({ form }) {
           )}
           <MenuButton
             onDelete={() => deleteForm(form._id)}
+            onEdit={() => navigate(`/forms/${form._id}`)}
             onShow={() => navigate(`/forms/${form._id}`)}
           />
         </CardFooter>
