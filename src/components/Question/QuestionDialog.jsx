@@ -8,6 +8,39 @@ const QuestionDialog = ({ field, index, quizContent, setQuizContent }) => {
   const [textField, setTextField] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
 
+  const deleteQuestion = (index) => {
+    setQuizContent((prevContent) => {
+      const updatedContent = [...prevContent];
+      updatedContent.splice(index, 1);
+      return updatedContent;
+    });
+  };
+
+  const handleDeleteQuestion = () => {
+    deleteQuestion(index);
+  };
+
+  const moveQuestion = (startIndex, endIndex) => {
+    setQuizContent((prevContent) => {
+      const updatedContent = [...prevContent];
+      const [removedQuestion] = updatedContent.splice(startIndex, 1);
+      updatedContent.splice(endIndex, 0, removedQuestion);
+      return updatedContent;
+    });
+  };
+
+  const handleMoveUp = () => {
+    if (index > 0) {
+      moveQuestion(index, index - 1);
+    }
+  };
+
+  const handleMoveDown = () => {
+    if (index < quizContent.length - 1) {
+      moveQuestion(index, index + 1);
+    }
+  };
+
   const editField = (index, question) => {
     setQuizContent((prevQuizContent) => {
       const updatedQuizContent = [...prevQuizContent];
@@ -130,6 +163,31 @@ const QuestionDialog = ({ field, index, quizContent, setQuizContent }) => {
             value={field.explanation}
             onChange={(e) => handleExplanationChange(index, e.target.value)}
           ></Textarea>
+          <div className="flex items-center">
+            <Button
+              variant="outlined"
+              className="flex-grow mr-2"
+              onClick={handleMoveUp}
+            >
+              Lên
+            </Button>
+            <Button
+              variant="outlined"
+              className="flex-grow"
+              onClick={handleMoveDown}
+            >
+              Xuống
+            </Button>
+          </div>
+
+          <Button
+            variant="outlined"
+            className="flex items-center justify-center gap-3"
+            onClick={handleDeleteQuestion}
+            color="red"
+          >
+            Xóa
+          </Button>
         </div>
       )}
     </div>

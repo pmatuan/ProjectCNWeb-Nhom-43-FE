@@ -11,7 +11,7 @@ const EditQuiz = () => {
   const [quizName, setQuizName] = useState("");
   const [quizContent, setQuizContent] = useState([]);
   const { id } = useParams();
-
+  
   // Fetch the quiz details using the id and populate the form
   useEffect(() => {
     const fetchQuizDetails = async () => {
