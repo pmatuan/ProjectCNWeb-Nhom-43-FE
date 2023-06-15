@@ -23,10 +23,10 @@ function App() {
       <Route path="/updatepassword" element={<UpdatePasswordPage />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/resetpassword" element={<ResetPassword />} />
-      <Route path="/quiztest/:id" element={<QuizTestPage />} />
       <Route path="/users" element={<UsersTable />} />
       <Route path="/forms" element={<QuizFormPage />} />
       <Route path="/forms/:id" element={<FormDetailPage />} />
+      <Route path="/forms/:id/exam" element={<QuizTestPage />} />
       <Route path="/students" element={<StudentPage />} />
       <Route path="/quizzes/:id" element={<QuizDetailPage />} />
       <Route path="/quizzes/edit/:id" element={<QuizEditPage />} />

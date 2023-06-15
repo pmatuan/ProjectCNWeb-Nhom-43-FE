@@ -122,14 +122,13 @@ function QuestionShow() {
         </Alert>
       ) : (
         <div>
-          <Card className="bg-blue-500 py-4 mx-2 my-4 sm:mx-4">
-            <Typography
-              color="blue-gray"
-              className="text-xl text-center text-white font-semibold px-2"
-            >
-              {formName}
-            </Typography>
-          </Card>
+          <Typography
+            className="text-xl text-center text-black font-semibold"
+            style={{ marginTop: "20px" }}
+          >
+            Form: {formName}
+          </Typography>
+
           {renderQuestion}
           <Card className="mx-2 my-8 sm:mx-4">
             <Button
@@ -139,21 +138,22 @@ function QuestionShow() {
               Nộp bài
             </Button>
             <Dialog open={open} handler={handleDialog}>
-              <DialogHeader className="text-2xl">{formName}</DialogHeader>
-              <DialogBody className="text-center" divider>
-                Xác nhận nộp bài!
+              <DialogHeader>
+                <Typography variant="h5" color="blue-gray">
+                  Thông báo
+                </Typography>
+              </DialogHeader>
+              <DialogBody divider className="grid place-items-center gap-4">
+                <Typography variant="h4">
+                  Xác nhận nộp bài kiểm tra!
+                </Typography>
               </DialogBody>
-              <DialogFooter>
-                <Button
-                  variant="text"
-                  color="red"
-                  onClick={handleDialog}
-                  className="mr-1"
-                >
-                  <span>Hủy</span>
-                </Button>
+              <DialogFooter className="space-x-2">
                 <Button variant="gradient" onClick={handleSubmit}>
-                  <span>Xác nhận</span>
+                  Xác nhận
+                </Button>
+                <Button variant="text" color="blue-gray" onClick={handleDialog}>
+                  Đóng
                 </Button>
               </DialogFooter>
             </Dialog>
