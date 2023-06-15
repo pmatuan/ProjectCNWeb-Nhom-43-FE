@@ -12,7 +12,6 @@ import {
   DialogFooter,
   Alert,
 } from "@material-tailwind/react";
-import useGeoLocation from "../Location/UseGeoLocation";
 import { API_URL } from "../../configs";
 
 function QuestionShow() {
@@ -22,7 +21,6 @@ function QuestionShow() {
   const [open, setOpen] = useState(false);
   const [submited, setSubmited] = useState(false);
   const { id } = useParams();
-  const location = useGeoLocation();
 
   const getQuestions = async () => {
     try {
@@ -47,14 +45,6 @@ function QuestionShow() {
     setOpen(!open);
   };
 
-  const verifyLocation = (latitude, longitude) => {
-    const userLat = location.latitude.toFixed(3);
-    const userLog = location.longitude.toFixed(3);
-    console.log(userLat, userLog);
-    if (userLat == latitude && userLog == longitude) return true;
-    else return false;
-  };
-
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
@@ -74,7 +64,6 @@ function QuestionShow() {
       console.log(err);
     }
     setSubmited(true);
-    console.log(verifyLocation(location.latitude, location.longitude));
   };
 
   const renderQuestion = questions.map((question, indexQues) => {
