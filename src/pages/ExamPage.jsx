@@ -1,13 +1,14 @@
 import { Fragment, useState } from "react";
 import axios from "axios";
+import SWAL from "sweetalert2";
 import FormPassword from "../components/Form/FormPassword";
 import MainLayout from "../layouts/MainLayout";
 import { API_URL } from "../configs";
 import { Typography, Radio, Button } from "@material-tailwind/react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function ExamPage() {
-  //const [showSpinner, setShowSpinner] = useState(false);
+  const navigate = useNavigate();
   const [form, setForm] = useState(null);
   const [answers, setAnswers] = useState({});
   const { id } = useParams();
@@ -39,8 +40,8 @@ function ExamPage() {
   };
 
   const handleFormSubmit = async () => {
-    try {
-      const response = await axios.post(
+    axios
+      .post(
         `${API_URL}/api/v1/forms/${id}`,
         {
           answers,
@@ -51,12 +52,20 @@ function ExamPage() {
           withCredentials: true,
           credentials: "include",
         }
-      );
-      console.log(response);
-      alert(`Điểm: ${response.data.data.attendance.grade}`);
-    } catch (err) {
-      console.error(err);
-    }
+      )
+      .then((response) => {
+        console.log(response);
+        SWAL.fire(
+          "Nộp bài thành công!",
+          `Điểm của bạn là: ${response.data.data.attendance.grade}`,
+          "success"
+        ).then(() => {
+          navigate("/students");
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const renderedQuestions = form.quiz.questions.map((question) => {

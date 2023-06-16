@@ -28,7 +28,7 @@ export default function UserProvider({ children }) {
 
   const isLoggedIn = async () => {
     try {
-      const response = await axios.get("${API_URL}/api/v1/", {
+      const response = await axios.get(`${API_URL}/api/v1/`, {
         withCredentials: true,
         credentials: "include",
       });

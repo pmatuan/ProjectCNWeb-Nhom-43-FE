@@ -41,7 +41,7 @@ function FormQR({ form, actionBar }) {
   return ReactDOM.createPortal(
     <div>
       <div className="fixed inset-0 bg-gray-300 opacity-80 rounded-lg"></div>
-      <div className="overflow-auto min-h-100 fixed inset-0 lg:inset-24 lg:p-24 p-10 bg-white rounded-lg">
+      <div className="overflow-auto min-h-100 fixed inset-0 lg:inset-20 p-10 bg-white rounded-lg">
         <div className="flex flex-col justify-between items-center h-full">
           <div className="text-center">
             <QRCode
@@ -50,25 +50,25 @@ function FormQR({ form, actionBar }) {
               fgColor="black"
               value={`http://localhost:5173/forms/${form._id}/exam`}
             />
-            <Typography className="text-2xl font-bold mt-3">
+            <Typography className="text-xl font-bold mt-3">
               {form.name}
             </Typography>
           </div>
 
           <div className="text-center">
-            <Typography className="text-2xl">
+            <Typography className="text-xl">
               Thời gian còn lại: {formatTime(timeLeft)}
             </Typography>
-            <Typography className="text-2xl">{form.quiz.name}</Typography>
+            <Typography className="text-xl">{form.quiz.name}</Typography>
             {showPassword && (
               <React.Fragment>
-                <Typography className="text-2xl">
+                <Typography className="text-xl">
                   Mật khẩu:{" "}
                   <span className="text-blue-500 font-bold">
                     {form.password}
                   </span>
                 </Typography>
-                <Typography className="text-2xl">
+                <Typography className="text-xl">
                   Thay đổi mật khẩu sau:{" "}
                   <span className="text-blue-500 font-bold">
                     {resetTimeRemaining}
