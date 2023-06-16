@@ -30,11 +30,6 @@ function TableRow({ user }) {
         </Typography>
       </td>
       <td className="p-4">
-        <Typography color="blue-gray" className="font-normal">
-          {user.device}
-        </Typography>
-      </td>
-      <td className="p-4">
         {showEdit ? (
           <RoleEdit user={user} onSubmit={handleEdit} />
         ) : (

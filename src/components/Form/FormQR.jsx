@@ -41,7 +41,7 @@ function FormQR({ form, actionBar }) {
   return ReactDOM.createPortal(
     <div>
       <div className="fixed inset-0 bg-gray-300 opacity-80 rounded-lg"></div>
-      <div className="fixed inset-0 lg:inset-20 p-10 bg-white rounded-lg">
+      <div className="overflow-auto min-h-100 fixed inset-0 lg:inset-24 lg:p-24 p-10 bg-white rounded-lg">
         <div className="flex flex-col justify-between items-center h-full">
           <div className="text-center">
             <QRCode

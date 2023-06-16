@@ -34,7 +34,7 @@ function AttendanceTable({ attendances, formName }) {
               "Email",
               "Điểm",
               "Thời gian nộp",
-              "Nguy cơ nghỉ học"
+              "Nguy cơ nghỉ học",
             ]}
           />
           <tbody>{renderedRows}</tbody>

@@ -11,14 +11,7 @@ function Table() {
     <Card className="overflow-auto max-w-screen-xl w-full mt-4 border-gray-500">
       <table className="min-w-max text-left border-blue-500">
         <TableHead
-          headers={[
-            "Họ tên",
-            "Email",
-            "Ngày tạo tài khoản",
-            "Mã thiết bị",
-            "Vai trò",
-            "",
-          ]}
+          headers={["Họ tên", "Email", "Ngày tạo tài khoản", "Vai trò", ""]}
         />
         <TableBody users={users} />
       </table>

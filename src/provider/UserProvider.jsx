@@ -49,7 +49,7 @@ export default function UserProvider({ children }) {
   const updateRole = async (user, newRole) => {
     try {
       const response = await axios.patch(
-        "${API_URL}/api/v1/users",
+        `${API_URL}/api/v1/users`,
         {
           userId: user._id,
           newRole: newRole,

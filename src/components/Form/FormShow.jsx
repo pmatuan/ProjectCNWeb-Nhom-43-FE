@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormContext from "../../contexts/FormContext";
 import {
@@ -21,6 +21,11 @@ function FormShow({ form }) {
   const [showQR, setShowQR] = useState(false);
   const [intervalID, setIntervalID] = useState(-1);
 
+  const handleCloseForm = () => {
+    clearInterval(intervalID);
+    closeForm(form._id);
+  };
+
   const handleClickEdit = () => {
     console.log(form);
     setShowFormEdit(true);
@@ -36,6 +41,7 @@ function FormShow({ form }) {
   };
 
   const handleCloseQR = () => {
+    handleCloseForm();
     setShowQR(false);
   };
 
@@ -50,7 +56,7 @@ function FormShow({ form }) {
 
   const actionBarEdit = (
     <Button className="col-span-2 bg-gray-400" onClick={handleCloseEdit}>
-      Đóng
+      Kết thúc
     </Button>
   );
 
@@ -61,11 +67,6 @@ function FormShow({ form }) {
   );
 
   const QR = <FormQR actionBar={actionBar} form={form} />;
-
-  const handleCloseForm = () => {
-    clearInterval(intervalID);
-    closeForm(form._id);
-  };
 
   return (
     <>
