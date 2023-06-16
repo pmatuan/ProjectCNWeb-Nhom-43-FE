@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import LoadingPage from "./pages/LoadingPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import UpdatePasswordPage from "./pages/UpdatePasswordPage";
@@ -11,13 +11,15 @@ import ResetPassword from "./pages/ResetPassword";
 import QuizTestPage from "./pages/QuizTestPage";
 import StudentPage from "./pages/StudentPage";
 import FormDetailPage from "./pages/FormDetailPage";
-import QuizDetailPage from "./pages/QuizDetailPage"
+import QuizDetailPage from "./pages/QuizDetailPage";
+import JoinPasswordPage from "./pages/JoinPasswordPage";
 import QuizEditPage from "./pages/QuizEditPage"
+
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<LoadingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/updatepassword" element={<UpdatePasswordPage />} />
@@ -26,6 +28,7 @@ function App() {
       <Route path="/users" element={<UsersTable />} />
       <Route path="/forms" element={<QuizFormPage />} />
       <Route path="/forms/:id" element={<FormDetailPage />} />
+      <Route path="/forms/:id/join" element={<JoinPasswordPage />} />
       <Route path="/forms/:id/exam" element={<QuizTestPage />} />
       <Route path="/students" element={<StudentPage />} />
       <Route path="/quizzes/:id" element={<QuizDetailPage />} />

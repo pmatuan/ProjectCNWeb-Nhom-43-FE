@@ -22,28 +22,44 @@ function QuestionShow() {
   const [submited, setSubmited] = useState(false);
   const { id } = useParams();
 
-  const getQuestions = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/api/v1/forms/${id}`, {
-        withCredentials: true,
-        credentials: "include",
-      });
-      if (response.status == 200) {
-        setformName(response.data.data.form.name);
-        setQuestions(response.data.data.form.quiz.questions);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    getQuestions();
+    const getQuestions = async (password) => {
+      try {
+        const response = await axios.post(
+          `http://localhost:9000/api/v1/forms/${id}/join`,
+          {
+            password,
+          },
+          {
+            withCredentials: true,
+            credentials: "include",
+          }
+        );
+        if (response.status == 200) {
+          setformName(response.data.data.form.name);
+          setQuestions(response.data.data.form.quiz.questions);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getQuestions(123456);
   }, [id]);
 
   const handleDialog = () => {
     setOpen(!open);
   };
+
+
+  const verifyLocation = (latitude, longitude) => {
+    const userLat = location.latitude.toFixed(3);
+    const userLog = location.longitude.toFixed(3);
+    console.log(userLat, userLog);
+    if (userLat == latitude && userLog == longitude) return true;
+    else return false;
+  };
+
 
   const handleSubmit = async () => {
     try {
@@ -64,6 +80,8 @@ function QuestionShow() {
       console.log(err);
     }
     setSubmited(true);
+
+    console.log(verifyLocation(location.latitude, location.longitude));
   };
 
   const renderQuestion = questions.map((question, indexQues) => {
@@ -117,7 +135,6 @@ function QuestionShow() {
           >
             Form: {formName}
           </Typography>
-
           {renderQuestion}
           <Card className="mx-2 my-8 sm:mx-4">
             <Button

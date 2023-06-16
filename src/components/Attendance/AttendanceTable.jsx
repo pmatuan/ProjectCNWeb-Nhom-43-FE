@@ -6,7 +6,7 @@ import AttendanceRow from "./AttendanceRow";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 
-function AttendanceTable({ attendances }) {
+function AttendanceTable({ attendances, formName }) {
   const tableRef = useRef(null);
 
   const renderedRows = attendances.map((attendance) => {
@@ -16,8 +16,8 @@ function AttendanceTable({ attendances }) {
   return (
     <React.Fragment>
       <DownloadTableExcel
-        filename="Danh sách điểm danh "
-        sheet="Danh sách"
+        filename={`Danh sách điểm danh ${formName}`}
+        sheet="Điểm danh"
         currentTableRef={tableRef.current}
       >
         <Button className="my-3 flex">
@@ -46,6 +46,7 @@ function AttendanceTable({ attendances }) {
 
 AttendanceTable.propTypes = {
   attendances: propTypes.array,
+  formName: propTypes.string,
 };
 
 export default AttendanceTable;
