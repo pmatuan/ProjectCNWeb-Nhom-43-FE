@@ -18,6 +18,8 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 
+import { API_URL } from "../configs";
+
 function ProfileMenu() {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,14 +32,11 @@ function ProfileMenu() {
 
   const logout = async () => {
     try {
-      const response = await axios.delete(
-        "http://localhost:9000/api/v1/logout",
-        {
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          withCredentials: true,
-        }
-      );
+      const response = await axios.delete(`${API_URL}/api/v1/logout`, {
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        withCredentials: true,
+      });
       if (response.status === 200) {
         localStorage.removeItem("user");
       }

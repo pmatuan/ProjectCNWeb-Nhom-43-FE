@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Button, Typography, Input } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../configs";
 
 function ResetPasswordForm() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function ResetPasswordForm() {
     try {
       event.preventDefault();
       const response = await axios.patch(
-        `http://localhost:9000/api/v1/resetPassword/${token}`,
+        `${API_URL}/api/v1/resetPassword/${token}`,
         {
           password,
           passwordConfirm,
@@ -42,21 +43,27 @@ function ResetPasswordForm() {
           type="text"
           label="Your token"
           value={token}
-          onChange={event => { setToken(event.target.value) }}
+          onChange={(event) => {
+            setToken(event.target.value);
+          }}
           required
         />
         <Input
           type="password"
           label="Password"
           value={password}
-          onChange={event => { setPassword(event.target.value) }}
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
           required
         />
         <Input
           type="password"
           label="Confirm password"
           value={passwordConfirm}
-          onChange={event => { setPasswordConfirm(event.target.value) }}
+          onChange={(event) => {
+            setPasswordConfirm(event.target.value);
+          }}
           required
         />
       </div>

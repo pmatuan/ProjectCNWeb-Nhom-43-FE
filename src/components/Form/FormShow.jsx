@@ -11,32 +11,32 @@ import {
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import MenuButton from "../MenuButton";
 import FormQR from "./FormQR";
+import FormEdit from "../Form/FormEdit";
 import propTypes from "prop-types";
 
 function FormShow({ form }) {
   const navigate = useNavigate();
   const { closeForm, startForm, deleteForm } = useContext(FormContext);
+  const [showFormEdit, setShowFormEdit] = useState(false);
   const [showQR, setShowQR] = useState(false);
   const [intervalID, setIntervalID] = useState(-1);
+
+  const handleClickEdit = () => {
+    console.log(form);
+    setShowFormEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setShowFormEdit(false);
+  };
 
   const ISOtoLocale = (ISOdate) => {
     const date = new Date(ISOdate);
     return date.toLocaleString();
   };
+
   const handleCloseQR = () => {
     setShowQR(false);
-  };
-
-  const actionBar = (
-    <Button className="bg-gray-400" onClick={handleCloseQR}>
-      Đóng
-    </Button>
-  );
-  const QR = <FormQR actionBar={actionBar} form={form} />;
-
-  const handleCloseForm = () => {
-    clearInterval(intervalID);
-    closeForm(form._id);
   };
 
   const handleOpen = () => {
@@ -48,9 +48,38 @@ function FormShow({ form }) {
     setShowQR(true);
   };
 
+  const actionBarEdit = (
+    <Button className="col-span-2 bg-gray-400" onClick={handleCloseEdit}>
+      Đóng
+    </Button>
+  );
+
+  const actionBar = (
+    <Button className="bg-gray-400" onClick={handleCloseQR}>
+      Đóng
+    </Button>
+  );
+
+  const QR = <FormQR actionBar={actionBar} form={form} />;
+
+  const handleCloseForm = () => {
+    clearInterval(intervalID);
+    closeForm(form._id);
+  };
+
   return (
-    <React.Fragment>
+    <>
       {showQR && QR}
+      {showFormEdit && (
+        <FormEdit
+          id={form._id}
+          quiz={form.quiz}
+          actionBar={actionBarEdit}
+          onSubmit={handleCloseEdit}
+          formName={form.name}
+          formtimeLimit={form.timeLimit}
+        />
+      )}
       <Card className="w-64 h-80 hover:">
         <CardBody>
           <Typography
@@ -89,11 +118,12 @@ function FormShow({ form }) {
           )}
           <MenuButton
             onDelete={() => deleteForm(form._id)}
+            onEdit={handleClickEdit}
             onShow={() => navigate(`/forms/${form._id}`)}
           />
         </CardFooter>
       </Card>
-    </React.Fragment>
+    </>
   );
 }
 

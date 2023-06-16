@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Button, Typography } from "@material-tailwind/react";
 import MainLayout from "../layouts/MainLayout";
 import QuestionList from "../components/Question/QuestionList";
+import { API_URL } from "../configs";
 
 function QuizDetail() {
   const [quiz, setQuiz] = useState(null);
@@ -12,13 +13,10 @@ function QuizDetail() {
   useEffect(() => {
     const getQuiz = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:9000/api/v1/quizzes/${id}`,
-          {
-            withCredentials: true,
-            credentials: "include",
-          }
-        );
+        const response = await axios.get(`${API_URL}/api/v1/quizzes/${id}`, {
+          withCredentials: true,
+          credentials: "include",
+        });
         console.log(response.data.data.quiz);
         setQuiz(response.data.data.quiz);
       } catch (err) {

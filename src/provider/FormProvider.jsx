@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import axios from "axios";
 import propTypes from "prop-types";
 import FormContext from "../contexts/FormContext";
+import { API_URL } from "../configs";
 
 export default function FormProvider({ children }) {
   const [forms, setForms] = useState([]);
@@ -10,14 +11,14 @@ export default function FormProvider({ children }) {
   const getForms = useCallback(async (page) => {
     try {
       const response = await axios.get(
-        `http://localhost:9000/api/v1/forms?limit=4&&page=${page}`,
+        `${API_URL}/api/v1/forms?limit=4&&page=${page}`,
         {
           withCredentials: true,
           credentials: "include",
         }
       );
       const response_getNumberOfForms = await axios.get(
-        `http://localhost:9000/api/v1/forms`,
+        `${API_URL}/api/v1/forms`,
         {
           withCredentials: true,
           credentials: "include",
@@ -25,7 +26,9 @@ export default function FormProvider({ children }) {
       );
       console.log(response_getNumberOfForms);
       setForms(response.data.data.forms);
-      setMaxPage(Math.ceil(response_getNumberOfForms.data.data.forms.length / 4));
+      setMaxPage(
+        Math.ceil(response_getNumberOfForms.data.data.forms.length / 4)
+      );
     } catch (err) {
       console.error(err);
     }
@@ -34,7 +37,7 @@ export default function FormProvider({ children }) {
   const closeForm = async (formId) => {
     try {
       const response = await axios.patch(
-        `http://localhost:9000/api/v1/forms/${formId}/close`,
+        `${API_URL}/api/v1/forms/${formId}/close`,
         {},
         {
           withCredentials: true,
@@ -63,7 +66,7 @@ export default function FormProvider({ children }) {
   const startForm = async (formId, newPassword) => {
     try {
       const response = await axios.patch(
-        `http://localhost:9000/api/v1/forms/${formId}/open`,
+        `${API_URL}/api/v1/forms/${formId}/open`,
         {
           password: newPassword,
         },
@@ -89,7 +92,27 @@ export default function FormProvider({ children }) {
   const createForm = async (quizId, name, timeLimit) => {
     try {
       await axios.post(
-        "http://localhost:9000/api/v1/forms",
+        "${API_URL}/api/v1/forms",
+        {
+          name,
+          quizId,
+          timeLimit,
+        },
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
+      await getForms();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const updateForm = async (quizId, name, timeLimit, formId) => {
+    try {
+      await axios.put(
+        `${API_URL}/api/v1/forms/${formId}`,
         {
           name,
           quizId,
@@ -108,7 +131,7 @@ export default function FormProvider({ children }) {
 
   const deleteForm = async (id) => {
     try {
-      await axios.delete(`http://localhost:9000/api/v1/forms/${id}`, {
+      await axios.delete(`${API_URL}/api/v1/forms/${id}`, {
         withCredentials: true,
         credentials: "include",
       });
@@ -128,6 +151,7 @@ export default function FormProvider({ children }) {
         closeForm,
         startForm,
         createForm,
+        updateForm,
         deleteForm,
       }}
     >

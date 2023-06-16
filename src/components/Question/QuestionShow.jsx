@@ -12,7 +12,7 @@ import {
   DialogFooter,
   Alert,
 } from "@material-tailwind/react";
-import useGeoLocation from "../Location/UseGeoLocation";
+import { API_URL } from "../../configs";
 
 function QuestionShow() {
   const [questions, setQuestions] = useState([]);
@@ -21,7 +21,6 @@ function QuestionShow() {
   const [open, setOpen] = useState(false);
   const [submited, setSubmited] = useState(false);
   const { id } = useParams();
-  const location = useGeoLocation();
 
   useEffect(() => {
     const getQuestions = async (password) => {
@@ -52,6 +51,7 @@ function QuestionShow() {
     setOpen(!open);
   };
 
+
   const verifyLocation = (latitude, longitude) => {
     const userLat = location.latitude.toFixed(3);
     const userLog = location.longitude.toFixed(3);
@@ -60,10 +60,11 @@ function QuestionShow() {
     else return false;
   };
 
+
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:9000/api/v1/forms/${id}`,
+        `${API_URL}/api/v1/forms/${id}`,
         {
           answers,
         },
@@ -79,6 +80,7 @@ function QuestionShow() {
       console.log(err);
     }
     setSubmited(true);
+
     console.log(verifyLocation(location.latitude, location.longitude));
   };
 
@@ -127,14 +129,12 @@ function QuestionShow() {
         </Alert>
       ) : (
         <div>
-          <Card className="bg-blue-500 py-4 mx-2 my-4 sm:mx-4">
-            <Typography
-              color="blue-gray"
-              className="text-xl text-center text-white font-semibold px-2"
-            >
-              {formName}
-            </Typography>
-          </Card>
+          <Typography
+            className="text-xl text-center text-black font-semibold"
+            style={{ marginTop: "20px" }}
+          >
+            Form: {formName}
+          </Typography>
           {renderQuestion}
           <Card className="mx-2 my-8 sm:mx-4">
             <Button
@@ -144,21 +144,22 @@ function QuestionShow() {
               Nộp bài
             </Button>
             <Dialog open={open} handler={handleDialog}>
-              <DialogHeader className="text-2xl">{formName}</DialogHeader>
-              <DialogBody className="text-center" divider>
-                Xác nhận nộp bài!
+              <DialogHeader>
+                <Typography variant="h5" color="blue-gray">
+                  Thông báo
+                </Typography>
+              </DialogHeader>
+              <DialogBody divider className="grid place-items-center gap-4">
+                <Typography variant="h4">
+                  Xác nhận nộp bài kiểm tra!
+                </Typography>
               </DialogBody>
-              <DialogFooter>
-                <Button
-                  variant="text"
-                  color="red"
-                  onClick={handleDialog}
-                  className="mr-1"
-                >
-                  <span>Hủy</span>
-                </Button>
+              <DialogFooter className="space-x-2">
                 <Button variant="gradient" onClick={handleSubmit}>
-                  <span>Xác nhận</span>
+                  Xác nhận
+                </Button>
+                <Button variant="text" color="blue-gray" onClick={handleDialog}>
+                  Đóng
                 </Button>
               </DialogFooter>
             </Dialog>
