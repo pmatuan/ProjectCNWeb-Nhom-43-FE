@@ -7,6 +7,9 @@ import { API_URL } from "../configs";
 import { Typography, Radio, Button } from "@material-tailwind/react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import getDevice from "../service/getDevice";
+import getCoordinates from "../service/getLocation";
+
 function ExamPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState(null);
@@ -40,13 +43,18 @@ function ExamPage() {
   };
 
   const handleFormSubmit = async () => {
+    const device = await getDevice();
+    const location = await getCoordinates();
     axios
       .post(
         `${API_URL}/api/v1/forms/${id}`,
         {
-          answers,
-          device: "#123456",
-          location: "Ha Noi",
+          answers,  
+          device: device,
+          location: {
+            latitude: location.latitude,
+            longitude: location.longitude,
+          },
         },
         {
           withCredentials: true,
