@@ -6,6 +6,7 @@ import MainLayout from "../layouts/MainLayout";
 import { API_URL } from "../configs";
 import { Typography, Radio, Button } from "@material-tailwind/react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import getDevice from "../service/getDevice";
 import getCoordinates from "../service/getLocation";
 

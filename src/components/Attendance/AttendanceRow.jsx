@@ -22,7 +22,6 @@ function TableRow({ attandance }) {
     fetchTeacherPosition();
     fetchStudentPosition();
   }, []);
-
   const ISOtoLocale = (ISOdate) => {
     const date = new Date(ISOdate);
     return date.toLocaleString();
@@ -40,7 +39,6 @@ function TableRow({ attandance }) {
   useEffect(() => {
     console.log("distance:", distance);
   }, [attandance.user.device, attandance.device, distance]);
-
   return (
     <tr className="even:bg-blue-gray-50/50">
       <td className="p-4">
