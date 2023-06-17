@@ -29,9 +29,12 @@ function ExamPage() {
       console.log(response.data.data.form);
       setForm(response.data.data.form);
     } catch (err) {
-      console.error(err);
-    } finally {
-      console.log("OK");
+      console.log(err);
+      SWAL.fire({
+        icon: "error",
+        title: "Sai mật khẩu",
+        text: "Vui lòng thử lại!",
+      });
     }
   };
 
@@ -49,7 +52,7 @@ function ExamPage() {
       .post(
         `${API_URL}/api/v1/forms/${id}`,
         {
-          answers,  
+          answers,
           device: device,
           location: {
             latitude: location.latitude,

@@ -46,6 +46,9 @@ function FormShow({ form }) {
   };
 
   const handleOpen = () => {
+    const newPassword = Math.round(Math.random() * 89999) + 10000;
+    startForm(form._id, newPassword);
+
     const id = setInterval(() => {
       const newPassword = Math.round(Math.random() * 89999) + 10000;
       startForm(form._id, newPassword);

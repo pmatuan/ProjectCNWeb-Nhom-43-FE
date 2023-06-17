@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import axios from "axios";
 import { API_URL } from "../../configs";
+import SWAL from "sweetalert2";
 
 function SignUpForm() {
   const navigate = useNavigate();
@@ -36,7 +37,14 @@ function SignUpForm() {
 
       console.dir(response);
       if (response.status === 201) {
-        navigate("/login");
+        SWAL.fire({
+          title: "Đăng ký thành công!",
+          text: "Vui lòng đăng nhập lại vào hệ thống",
+          icon: "success",
+          confirmButtonText: "Quay lại đăng nhập",
+        }).then(() => {
+          navigate("/login");
+        });
       } else setError(response.data.message);
     } catch (err) {
       console.log(err);

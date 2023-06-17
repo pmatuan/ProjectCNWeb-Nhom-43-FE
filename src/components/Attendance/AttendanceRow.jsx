@@ -5,6 +5,7 @@ import getCoordinates from "../../service/getLocation";
 import getDistance from "../../service/getDistance";
 
 function TableRow({ attandance }) {
+  console.log(attandance);
   const [positionTeacher, setPositionTeacher] = useState(null);
   const [positionStudent, setPositionStudent] = useState(null);
   const [distance, setDistance] = useState(null);
