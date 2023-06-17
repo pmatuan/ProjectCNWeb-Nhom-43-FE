@@ -1,16 +1,16 @@
+import React, { useState, useContext } from "react";
 import { Typography, Input, Button } from "@material-tailwind/react";
 import propTypes from "prop-types";
 import ReactDOM from "react-dom";
 import FormContext from "../../contexts/FormContext";
-import { useState, useContext } from "react";
 
-function FormCreate({ quiz, actionBar, onSubmit }) {
-  const [name, setName] = useState("");
-  const [timeLimit, setTimeLimit] = useState(15);
-  const { createForm } = useContext(FormContext);
+function FormEdit({ id, quiz, actionBar, onSubmit, formName, formtimeLimit }) {
+  const [name, setName] = useState(formName);
+  const [timeLimit, setTimeLimit] = useState(formtimeLimit);
+  const { updateForm } = useContext(FormContext);
 
   const handleSubmit = () => {
-    createForm(quiz._id, name, timeLimit);
+    updateForm(quiz._id, name, timeLimit, id);
     onSubmit();
   };
 
@@ -22,9 +22,6 @@ function FormCreate({ quiz, actionBar, onSubmit }) {
           <div className="text-center grid gap-8 -mt-3">
             <Typography className="text-2xl font-bold">
               Bộ câu hỏi: {quiz.name}
-            </Typography>
-            <Typography className="text-2xl">
-              Số câu hỏi: {quiz.questions.length}
             </Typography>
             <form className="grid gap-4 w-full">
               <Input
@@ -48,7 +45,7 @@ function FormCreate({ quiz, actionBar, onSubmit }) {
             </form>
             <div className="grid grid-cols-6 gap-3">
               <Button className="col-span-4" onClick={handleSubmit}>
-                Tạo bài kiểm tra
+                Lưu
               </Button>
               {actionBar}
             </div>
@@ -60,10 +57,10 @@ function FormCreate({ quiz, actionBar, onSubmit }) {
   );
 }
 
-FormCreate.propTypes = {
+FormEdit.propTypes = {
   form: propTypes.object,
   onSubmit: propTypes.func,
   actionBar: propTypes.element,
 };
 
-export default FormCreate;
+export default FormEdit;

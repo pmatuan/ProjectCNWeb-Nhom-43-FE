@@ -5,7 +5,7 @@ import FormShow from "../Form/FormShow";
 import Pagination from "../Pagination";
 
 function FormList() {
-  const { forms } = useContext(FormContext);
+  const { forms, maxPage, getForms } = useContext(FormContext);
 
   const renderedForms = forms.map((form) => (
     <FormShow key={form._id} form={form} />
@@ -23,7 +23,7 @@ function FormList() {
           {renderedForms}
         </div>
       </div>
-      <Pagination />
+      <Pagination getElements={getForms} max={maxPage} />
     </React.Fragment>
   );
 }

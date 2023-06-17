@@ -9,11 +9,14 @@ import {
 import propTypes from "prop-types";
 import MenuButton from "../MenuButton";
 import FormCreate from "../Form/FormCreate";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import QuizContext from "../../contexts/QuizContext";
 
 function QuizShow({ quiz }) {
+  const navigate = useNavigate();
   const [showFormCreate, setShowFormCreate] = useState(false);
-
+  const { deleteQuiz } = useContext(QuizContext);
   const handleClick = () => {
     setShowFormCreate(true);
   };
@@ -36,7 +39,7 @@ function QuizShow({ quiz }) {
       <Card className="mt-10 w-64 h-72">
         <CardHeader className="h-24">
           <img
-            src="src\assets\attendance-tracker-low-resolution-color-logo.png"
+            src="http://localhost:5173/src/assets/attendance-tracker-low-resolution-color-logo.png"
             className="object-center object-cover"
           />
         </CardHeader>
@@ -56,7 +59,11 @@ function QuizShow({ quiz }) {
               Tạo bài kiểm tra
             </Button>
           </a>
-          <MenuButton />
+          <MenuButton
+            onDelete={() => deleteQuiz(quiz._id)}
+            onEdit={() => navigate(`/quizzes/edit/${quiz._id}`)}
+            onShow={() => navigate(`/quizzes/${quiz._id}`)}
+          />
         </CardFooter>
       </Card>
     </React.Fragment>

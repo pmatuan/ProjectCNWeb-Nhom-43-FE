@@ -18,6 +18,8 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 
+import { API_URL } from "../configs";
+
 function ProfileMenu() {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,18 +28,15 @@ function ProfileMenu() {
   const handleUpdatePassword = () => {
     setIsMenuOpen(false);
     navigate("/updatePassword");
-  }
+  };
 
   const logout = async () => {
     try {
-      const response = await axios.delete(
-        "http://localhost:9000/api/v1/logout",
-        {
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          withCredentials: true,
-        }
-      );
+      const response = await axios.delete(`${API_URL}/api/v1/logout`, {
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        withCredentials: true,
+      });
       if (response.status === 200) {
         localStorage.removeItem("user");
       }
@@ -108,7 +107,7 @@ function Navbar() {
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <Link to="#" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
           <img
-            src="src\assets\attendance-tracker-high-resolution-logo-black-on-transparent-background.png"
+            src="http://localhost:5173/src/assets/attendance-tracker-high-resolution-logo-black-on-transparent-background.png"
             className="h-7 w-full"
           />
         </Link>

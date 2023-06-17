@@ -3,21 +3,24 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import propTypes from "prop-types";
 import UserContext from "../contexts/UserContext";
+import { API_URL } from "../configs";
 
 export default function UserProvider({ children }) {
   const [users, setUsers] = useState([]);
+  const [maxPage, setMaxPage] = useState(1);
   const navigate = useNavigate();
 
-  const getUsers = useCallback(async () => {
+  const getUsers = useCallback(async (page) => {
     try {
       const response = await axios.get(
-        "http://localhost:9000/api/v1/users?limit=8&page=1",
+        `${API_URL}/api/v1/users?limit=8&page=${page}`,
         {
           withCredentials: true,
           credentials: "include",
         }
       );
       setUsers(response.data.data.users);
+      setMaxPage(Math.ceil(response.data.data.count / 8));
     } catch (err) {
       console.error(err);
     }
@@ -25,7 +28,7 @@ export default function UserProvider({ children }) {
 
   const isLoggedIn = async () => {
     try {
-      const response = await axios.get("http://localhost:9000/api/v1/", {
+      const response = await axios.get(`${API_URL}/api/v1/`, {
         withCredentials: true,
         credentials: "include",
       });
@@ -46,7 +49,7 @@ export default function UserProvider({ children }) {
   const updateRole = async (user, newRole) => {
     try {
       const response = await axios.patch(
-        "http://localhost:9000/api/v1/users",
+        `${API_URL}/api/v1/users`,
         {
           userId: user._id,
           newRole: newRole,
@@ -73,7 +76,7 @@ export default function UserProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ users, setUsers, getUsers, updateRole, isLoggedIn }}
+      value={{ users, maxPage, setUsers, getUsers, updateRole, isLoggedIn }}
     >
       {children}
     </UserContext.Provider>

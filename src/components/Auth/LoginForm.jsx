@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Button, Typography, Input } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { API_URL } from "../../configs";
 function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -20,7 +20,7 @@ function LoginForm() {
     try {
       event.preventDefault();
       const response = await axios.post(
-        "http://localhost:9000/api/v1/login",
+        `${API_URL}/api/v1/login`,
         {
           email,
           password,
@@ -37,6 +37,7 @@ function LoginForm() {
         localStorage.setItem("user", response.data.data.user.name);
         response.data.data.user.role === "admin" && navigate("/users");
         response.data.data.user.role === "teacher" && navigate("/forms");
+        response.data.data.user.role === "student" && navigate("/students");
       } else setError(response.data.message);
     } catch (err) {
       console.log(err);

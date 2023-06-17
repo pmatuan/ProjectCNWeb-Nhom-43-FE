@@ -4,21 +4,22 @@ import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import axios from "axios";
+import { API_URL } from "../../configs";
 
 function SignUpForm() {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [device, setDevice] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [device, setDevice] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       const response = await axios.post(
-        "http://localhost:9000/api/v1/signup",
+        `${API_URL}/api/v1/signup`,
         {
           name,
           email,
@@ -41,7 +42,7 @@ function SignUpForm() {
       console.log(err);
       setError(err.response.data.message);
     }
-  }
+  };
 
   useEffect(() => {
     const getDevice = async () => {
@@ -59,28 +60,36 @@ function SignUpForm() {
           type="text"
           label="Họ tên"
           value={name}
-          onChange={event => { setName(event.target.value) }}
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
           required
         />
         <Input
           type="email"
           label="Email"
           value={email}
-          onChange={event => { setEmail(event.target.value) }}
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
           required
         />
         <Input
           type="password"
           label="Mật khẩu"
           value={password}
-          onChange={event => { setPassword(event.target.value) }}
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
           required
         />
         <Input
           type="password"
           label="Xác nhận mật khẩu"
           value={passwordConfirm}
-          onChange={event => { setPasswordConfirm(event.target.value) }}
+          onChange={(event) => {
+            setPasswordConfirm(event.target.value);
+          }}
           required
         />
       </div>

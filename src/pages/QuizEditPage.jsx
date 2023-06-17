@@ -5,11 +5,47 @@ import { Button } from "@material-tailwind/react";
 import MainLayout from "../layouts/MainLayout";
 import QuizNameDialog from "../components/Quiz/QuizNameDialog";
 import QuestionDialog from "../components/Question/QuestionDialog";
+import { useParams } from "react-router-dom";
 import { API_URL } from "../configs";
 
-const CreateQuiz = () => {
+const EditQuiz = () => {
   const [quizName, setQuizName] = useState("");
   const [quizContent, setQuizContent] = useState([]);
+  const { id } = useParams();
+
+  // Fetch the quiz details using the id and populate the form
+  useEffect(() => {
+    const fetchQuizDetails = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/api/v1/quizzes/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          withCredentials: true,
+        });
+        const quizData = response.data.data.quiz;
+        setQuizName(quizData.name);
+        setQuizContent(() => {
+          const updatedContent = [];
+          for (let i = 0; i < quizData.questions.length; i++) {
+            updatedContent.push({
+              question_type: "multichoice",
+              question: quizData.questions[i].question,
+              answers: quizData.questions[i].answers,
+              key: quizData.questions[i].key,
+              explanation: quizData.questions[i].explanation,
+            });
+          }
+          return updatedContent;
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchQuizDetails();
+  }, [id]);
 
   const addQuestion = () => {
     setQuizContent((prevContent) => [
@@ -26,8 +62,8 @@ const CreateQuiz = () => {
 
   const handleSubmit = async () => {
     try {
-      const response_createQuiz = await axios.post(
-        `${API_URL}/api/v1/quizzes`,
+      const response_editQuiz = await axios.put(
+        `${API_URL}/api/v1/quizzes/${id}`,
         {
           name: quizName,
         },
@@ -37,7 +73,7 @@ const CreateQuiz = () => {
           withCredentials: true,
         }
       );
-      const id = response_createQuiz.data.data.quiz.id;
+
       const questions = quizContent.map(
         ({ question, answers, key, explanation }) => ({
           question,
@@ -46,10 +82,17 @@ const CreateQuiz = () => {
           explanation,
         })
       );
-      const response_addQuestions = await axios.post(
+
+      await axios.delete(`${API_URL}/api/v1/quizzes/${id}/questions`, {
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        withCredentials: true,
+      });
+
+      await axios.post(
         `${API_URL}/api/v1/quizzes/${id}/questions`,
         {
-          questions,
+          questions: questions,
         },
         {
           headers: { "Content-Type": "application/json" },
@@ -57,6 +100,7 @@ const CreateQuiz = () => {
           withCredentials: true,
         }
       );
+
       window.location.href = "/forms";
     } catch (error) {
       console.log(error);
@@ -101,4 +145,4 @@ const CreateQuiz = () => {
   );
 };
 
-export default CreateQuiz;
+export default EditQuiz;
