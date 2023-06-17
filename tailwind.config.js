@@ -5,7 +5,7 @@ export default withMT({
   theme: {
     extend: {
       backgroundImage: {
-        b1: "url('http://localhost:5173/src/assets/B1.jpeg')",
+        b1: "url('/src/assets/B1.jpeg')",
       },
     },
   },
