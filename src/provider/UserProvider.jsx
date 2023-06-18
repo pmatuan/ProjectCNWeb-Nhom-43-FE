@@ -32,11 +32,12 @@ export default function UserProvider({ children }) {
         withCredentials: true,
         credentials: "include",
       });
-
-      if (response.status == 200) {
+      console.log(response);
+      if (response.status == 200 || response.status == 304) {
         localStorage.setItem("user", response.data.data.user.name);
         response.data.data.user.role === "admin" && navigate("/users");
         response.data.data.user.role === "teacher" && navigate("/forms");
+        response.data.data.user.role === "student" && navigate("/students");
       } else {
         navigate("/login");
       }

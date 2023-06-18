@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import propTypes from "prop-types";
 import { IconButton, Typography } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 function Pagination({ getElements, max }) {
   const [active, setActive] = React.useState(1);
+
+  useEffect(() => {
+    if (active > max) setActive(max);
+  }, [max, active]);
 
   const next = () => {
     if (active === max) return;

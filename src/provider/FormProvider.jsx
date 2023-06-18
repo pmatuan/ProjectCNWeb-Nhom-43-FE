@@ -11,24 +11,15 @@ export default function FormProvider({ children }) {
   const getForms = useCallback(async (page) => {
     try {
       const response = await axios.get(
-        `${API_URL}/api/v1/forms?limit=4&&page=${page}`,
+        `http://localhost:9000/api/v1/forms?limit=4&&page=${page}`,
         {
           withCredentials: true,
           credentials: "include",
         }
       );
-      const response_getNumberOfForms = await axios.get(
-        `${API_URL}/api/v1/forms`,
-        {
-          withCredentials: true,
-          credentials: "include",
-        }
-      );
-      console.log(response_getNumberOfForms);
+      console.log(response);
       setForms(response.data.data.forms);
-      setMaxPage(
-        Math.ceil(response_getNumberOfForms.data.data.forms.length / 4)
-      );
+      setMaxPage(Math.ceil(response.data.data.count / 4));
     } catch (err) {
       console.error(err);
     }
