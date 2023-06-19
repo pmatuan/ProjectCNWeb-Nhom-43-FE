@@ -58,7 +58,7 @@ function TableRow({ attandance }) {
       </td>
       <td className="p-4">
         <Typography color="blue-gray">
-          {attandance.user.device === attandance.device && distance < 10
+          {attandance.user.device === attandance.device && distance < 12
             ? "Không"
             : "Có"}
         </Typography>
