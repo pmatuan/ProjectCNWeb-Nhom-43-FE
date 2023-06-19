@@ -8,6 +8,7 @@ function Pagination({ getElements, max }) {
 
   useEffect(() => {
     if (active > max) setActive(max);
+    if (max == 1) setActive(1);
   }, [max, active]);
 
   const next = () => {

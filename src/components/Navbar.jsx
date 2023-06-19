@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   ChevronDownIcon,
   PowerIcon,
-  KeyIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -105,7 +104,7 @@ function Navbar() {
   return (
     <MNavbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
-        <Link to="#" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
+        <Link to="/" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
           <img
             src="http://localhost:5173/src/assets/attendance-tracker-high-resolution-logo-black-on-transparent-background.png"
             className="h-7 w-full"

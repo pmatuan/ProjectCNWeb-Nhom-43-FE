@@ -94,7 +94,7 @@ export default function FormProvider({ children }) {
           credentials: "include",
         }
       );
-      await getForms();
+      await getForms(1);
     } catch (err) {
       console.error(err);
     }
