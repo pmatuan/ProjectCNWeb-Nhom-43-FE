@@ -43,6 +43,7 @@ function FormQR({ form, actionBar }) {
       <div className="fixed inset-0 bg-gray-300 opacity-80 rounded-lg"></div>
       <div className="overflow-auto min-h-100 fixed inset-0 lg:inset-20 p-10 bg-white rounded-lg">
         <div className="flex flex-col justify-between items-center h-full">
+          <p>Link: {`http://localhost:5173/forms/${form._id}/exam`}</p>
           <div className="text-center">
             <QRCode
               size={270}
@@ -54,7 +55,6 @@ function FormQR({ form, actionBar }) {
               {form.name}
             </Typography>
           </div>
-
           <div className="text-center">
             <Typography className="text-xl">
               Thời gian còn lại: {formatTime(timeLeft)}
