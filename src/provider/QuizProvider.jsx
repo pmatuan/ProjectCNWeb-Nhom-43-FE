@@ -11,24 +11,14 @@ export default function QuizProvider({ children }) {
   const getQuizzes = useCallback(async (page) => {
     try {
       const response = await axios.get(
-        `${API_URL}/api/v1/quizzes?limit=4&page=${page}`,
-        {
-          withCredentials: true,
-          credentials: "include",
-        }
-      );
-      //console.log(response);
-      const response_getNumberOfQuestion = await axios.get(
-        `${API_URL}/api/v1/quizzes`,
+        `http://localhost:9000/api/v1/quizzes?limit=4&page=${page}`,
         {
           withCredentials: true,
           credentials: "include",
         }
       );
       setQuizzes(response.data.data.quizzes);
-      setMaxPage(
-        Math.ceil(response_getNumberOfQuestion.data.data.quizzes.length / 4)
-      );
+      setMaxPage(Math.ceil(response.data.data.count / 4));
     } catch (err) {
       console.error(err);
     }
