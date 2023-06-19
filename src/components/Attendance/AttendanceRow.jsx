@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Typography } from "@material-tailwind/react";
 import PropTypes from "prop-types";
 import getCoordinates from "../../service/getLocation";
-import getDistance from "../../service/getDistance";
+import compareCoordinates from "../../service/compareCoordinates";
 
 function TableRow({ attandance }) {
   const [positionTeacher, setPositionTeacher] = useState(null);
   const [positionStudent, setPositionStudent] = useState(null);
-  const [distance, setDistance] = useState(null);
+  const [sameLocation, setSameLocation] = useState(null);
 
   useEffect(() => {
     const fetchTeacherPosition = async () => {
@@ -31,14 +31,14 @@ function TableRow({ attandance }) {
     console.log(positionTeacher);
     console.log(positionStudent);
     if (positionTeacher && positionStudent) {
-      const calculatedDistance = getDistance(positionStudent, positionTeacher);
-      setDistance(calculatedDistance);
+      const checkSameLocation = compareCoordinates(positionStudent, positionTeacher);
+      setSameLocation(checkSameLocation);
     }
   }, [positionTeacher, positionStudent]);
 
   useEffect(() => {
-    console.log("distance:", distance);
-  }, [attandance.user.device, attandance.device, distance]);
+    console.log("sameLocation:", sameLocation);
+  }, [attandance.user.device, attandance.device, sameLocation]);
   return (
     <tr className="even:bg-blue-gray-50/50">
       <td className="p-4">
@@ -57,7 +57,7 @@ function TableRow({ attandance }) {
       </td>
       <td className="p-4">
         <Typography color="blue-gray">
-          {attandance.user.device === attandance.device && distance < 1
+          {attandance.user.device === attandance.device && sameLocation 
             ? "Không"
             : "Có"}
         </Typography>
